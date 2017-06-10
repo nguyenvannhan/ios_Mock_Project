@@ -1,0 +1,6 @@
+framework module Pods_Mock_Revenue {
+  umbrella header "Pods-Mock_Revenue-umbrella.h"
+
+  export *
+  module * { export * }
+}
