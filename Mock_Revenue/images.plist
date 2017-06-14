@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>error_icon</key>
+	<string>error_icon</string>
+	<key>cate_default</key>
+	<string>cate_default</string>
+	<key>menu_2</key>
+	<string>menu_2</string>
+	<key>user_default</key>
+	<string>user_default</string>
+	<key>wallet</key>
+	<string>wallet</string>
+	<key>message</key>
+	<string>message</string>
+	<key>home</key>
+	<string>home</string>
+	<key>main_logo</key>
+	<string>main_logo</string>
+	<key>list</key>
+	<string>list</string>
+	<key>map</key>
+	<string>map</string>
+	<key>menu</key>
+	<string>menu</string>
+	<key>setting_1</key>
+	<string>setting_1</string>
+	<key>setting</key>
+	<string>setting</string>
+</dict>
+</plist>
