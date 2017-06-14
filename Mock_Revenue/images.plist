@@ -28,5 +28,25 @@
 	<string>setting_1</string>
 	<key>setting</key>
 	<string>setting</string>
+	<key>eat</key>
+	<string>eat</string>
+	<key>suppermarket</key>
+	<string>suppermarket</string>
+	<key>electric</key>
+	<string>electric</string>
+	<key>water</key>
+	<string>water</string>
+	<key>married</key>
+	<string>married</string>
+	<key>money</key>
+	<string>money</string>
+	<key>tienthuong</key>
+	<string>tienthuong</string>
+	<key>internet</key>
+	<string>internet</string>
+	<key>gasoline</key>
+	<string>gasoline</string>
+	<key>clothes</key>
+	<string>clothes</string>
 </dict>
 </plist>
