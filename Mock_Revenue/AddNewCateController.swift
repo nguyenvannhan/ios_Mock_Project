@@ -80,8 +80,11 @@ class AddNewCateController: UIViewController, SendImageBack {
     }
     
     @IBAction func txtNameEditingEnd(_ sender: Any) {
-        if txtNameRevenueType.text == "" {
-            txtNameRevenueType.setError(error: true, message: "Please Enter Revenue Type Name")
+        let txt = sender as? ValidationTextField
+        let str = txt?.text
+        
+        if str?.characters.count == 0 {
+            txt?.setError(error: true, message: "Please Enter Revenue Type Name")
         }
     }
 }

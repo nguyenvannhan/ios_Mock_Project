@@ -14,14 +14,15 @@ class DAORevenueType {
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
     
-    let uid = User.uid
+    
     
     func getOutComeType(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
         var revenueTypeListc: [RevenueType] = []
-        
+        let uid = User.uid
         ref = Database.database().reference()
         
-        handle = ref?.child("loai_chi").observe(.value, with: { (snapshot) in
+        
+        handle = ref?.child("nguoi_dung").child(uid!).child("loai_chi").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -42,10 +43,11 @@ class DAORevenueType {
     
     func getInComeType(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
         var revenueTypeListc: [RevenueType] = []
+        let uid = User.uid
         
         ref = Database.database().reference()
-            
-        handle = ref?.child("loai_thu").observe(.value, with: { (snapshot) in
+        
+        handle = ref?.child("nguoi_dung").child(uid!).child("loai_thu").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -58,7 +60,7 @@ class DAORevenueType {
                 completionHandler(revenueTypeListc, nil)
             } else {
                 let error = "Can not get data"
-                    
+                
                 completionHandler(nil, error)
             }
         })
@@ -67,16 +69,18 @@ class DAORevenueType {
     func addNewRevenueType(loaiChi: Bool, revenueType: RevenueType, completionHandler: @escaping (_ error: Error?) -> Void) {
         ref = Database.database().reference()
         let data = [
-            "ten": revenueType.name,
-            "hinh_anh": revenueType.image
+            "ten": revenueType.name!,
+            "hinh_anh": revenueType.image! + ".png"
         ]
         
+        let uid = User.uid
+        
         if(loaiChi) {
-            self.ref?.child("nguoi_dung").child(self.uid!).child("loai_chi").childByAutoId().setValue(data, withCompletionBlock: { (error, ref) in
+            self.ref?.child("nguoi_dung").child(uid!).child("loai_chi").childByAutoId().setValue(data, withCompletionBlock: { (error, ref) in
                 completionHandler(error)
             })
         } else {
-            self.ref?.child("nguoi_dung").child(self.uid!).child("loai_thu").setValue(data, withCompletionBlock: { (error, ref) in
+            self.ref?.child("nguoi_dung").child(uid!).child("loai_thu").childByAutoId().setValue(data, withCompletionBlock: { (error, ref) in
                 completionHandler(error)
             })
         }
