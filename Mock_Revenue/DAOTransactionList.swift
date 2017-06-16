@@ -32,7 +32,7 @@ class DAOTransactionList {
                 }
                 completionHandler(transactionList, nil)
             } else {
-                let error = "Can not get data!"
+                let error = "Don't have transaction history. Click button Add to create new!"
                 
                 completionHandler(nil, error)
             }

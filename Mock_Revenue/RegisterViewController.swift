@@ -14,8 +14,12 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var txtEmail: ValidationTextField!
     @IBOutlet weak var txtPassword: ValidationTextField!
     @IBOutlet weak var txtConfirmPass: ValidationTextField!
+    @IBOutlet weak var txtAmount: ValidationTextField!
+    @IBOutlet weak var txtAge: ValidationTextField!
+    @IBOutlet weak var txtName: ValidationTextField!
     
     var commonFunction: CommonFunction = CommonFunction()
+    var daoUser: DAOUser = DAOUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +41,7 @@ class RegisterViewController: UIViewController {
             present(alertController, animated: true, completion: nil)
         } else {
             //Đăng ký tài khoản sử dụng API của Firebase
-            Auth.auth().createUser(withEmail: txtEmail.text!, password: txtPassword.text!, completion: { (user, error) in
+            daoUser.registry(email: txtEmail.text!, password: txtPassword.text!, name: txtName.text!, age: Int(txtAge.text!)!, amount: Double(txtAmount.text!)!, completionHandler: { (error) in 
                 if error == nil {
                     //Nếu thành công chuyển qua trnag main
                     print("You have successfully sign up")

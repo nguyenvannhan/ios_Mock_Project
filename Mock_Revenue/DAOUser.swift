@@ -14,6 +14,8 @@ class DAOUser {
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
     
+    let daoRevenueType: DAORevenueType = DAORevenueType()
+    
     func login(email: String, password: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
@@ -36,6 +38,51 @@ class DAOUser {
                 completionHandler(error)
             }
         }
+    }
+    
+    func registry(email: String, password: String, name: String, age: Int, amount: Double, completionHandler: @escaping (_ error: Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error == nil {
+                let uid = user?.uid
+                
+                self.ref = Database.database().reference()
+                let data = [
+                    "ten": name,
+                    "tuoi": age,
+                    "luong_tien": amount
+                ] as [String : Any]
+                self.ref?.child("nguoi_dung").child(uid!).setValue(data, withCompletionBlock: { (errorUser, ref) in
+                    if errorUser == nil {
+                        User.setInfo(name: name, age: age, amount: amount)
+                        User.email = email
+                        User.uid = uid!
+                        self.daoRevenueType.getInComeTypeFirst(completionHandler: { (expenseTypeList, error) in
+                            for expenseType in expenseTypeList! {
+                                let data = [
+                                    "ten": expenseType.name,
+                                    "hinh_anh": expenseType.image!
+                                ] as [String: AnyObject]
+                                
+                                self.ref?.child("nguoi_dung").child(uid!).child("loai_thu").childByAutoId().setValue(data)
+                            }
+                            self.daoRevenueType.getOutComeTypeFirst(completionHandler: { (expenseTypeList, error) in
+                                for expenseType in expenseTypeList! {
+                                    let data = [
+                                        "ten": expenseType.name,
+                                        "hinh_anh": expenseType.image! + ".png"
+                                        ] as [String: AnyObject]
+                                    
+                                    self.ref?.child("nguoi_dung").child(uid!).child("loai_chi").childByAutoId().setValue(data)
+                                }
+                                completionHandler(nil)
+                            })
+                        })
+                    }
+                })
+            } else {
+                completionHandler(error)
+            }
+        })
     }
     
     func changePassword(currentPassword: String, newPassword: String, completionHandler: @escaping (_ error: Error?) -> Void) {

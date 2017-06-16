@@ -28,6 +28,32 @@ class DAORevenueType {
                     for snap in snapshot {
                         if let postDict = snap.value as? [String: AnyObject] {
                             let revenueType = RevenueType(json: postDict)
+                            revenueType.key = snap.key
+                            revenueTypeListc.append(revenueType)
+                        }
+                    }
+                }
+                completionHandler(revenueTypeListc, nil)
+            } else {
+                let error = "Can not get data"
+                
+                completionHandler(nil, error)
+            }
+        })
+    }
+    
+    func getOutComeTypeFirst(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
+        var revenueTypeListc: [RevenueType] = []
+        ref = Database.database().reference()
+        
+        
+        handle = ref?.child("loai_chi").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                    for snap in snapshot {
+                        if let postDict = snap.value as? [String: AnyObject] {
+                            let revenueType = RevenueType(json: postDict)
+                            revenueType.key = snap.key
                             revenueTypeListc.append(revenueType)
                         }
                     }
@@ -53,6 +79,32 @@ class DAORevenueType {
                     for snap in snapshot {
                         if let postDict = snap.value as? [String: AnyObject] {
                             let revenueType = RevenueType(json: postDict)
+                            revenueType.key = snap.key
+                            revenueTypeListc.append(revenueType)
+                        }
+                    }
+                }
+                completionHandler(revenueTypeListc, nil)
+            } else {
+                let error = "Can not get data"
+                
+                completionHandler(nil, error)
+            }
+        })
+    }
+    
+    func getInComeTypeFirst(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
+        var revenueTypeListc: [RevenueType] = []
+        
+        ref = Database.database().reference()
+        
+        handle = ref?.child("loai_thu").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                    for snap in snapshot {
+                        if let postDict = snap.value as? [String: AnyObject] {
+                            let revenueType = RevenueType(json: postDict)
+                            revenueType.key = snap.key
                             revenueTypeListc.append(revenueType)
                         }
                     }
