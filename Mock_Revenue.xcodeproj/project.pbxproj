@@ -33,6 +33,10 @@
 		94AA88D61EEC3066000B4C13 /* CateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88D51EEC3066000B4C13 /* CateViewController.swift */; };
 		94AA88D81EEC3076000B4C13 /* CateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88D71EEC3076000B4C13 /* CateViewCell.swift */; };
 		94AA88DB1EEC4895000B4C13 /* DAORevenueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88DA1EEC4895000B4C13 /* DAORevenueType.swift */; };
+		94B428331EF373250040DB51 /* DAOReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B428321EF373250040DB51 /* DAOReport.swift */; };
+		94B428361EF377C00040DB51 /* CommonReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B428351EF377C00040DB51 /* CommonReportController.swift */; };
+		94B428381EF37A6E0040DB51 /* CommonReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B428371EF37A6E0040DB51 /* CommonReportCell.swift */; };
+		94B4283A1EF37BE90040DB51 /* CommonReportModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B428391EF37BE90040DB51 /* CommonReportModel.swift */; };
 		94EF650D1EF2770A00F6C2BD /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF650C1EF2770A00F6C2BD /* TransactionModel.swift */; };
 		94EF650F1EF27C0000F6C2BD /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF650E1EF27C0000F6C2BD /* MainViewController.swift */; };
 		94EF65111EF2D20300F6C2BD /* MainViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF65101EF2D20300F6C2BD /* MainViewCell.swift */; };
@@ -99,6 +103,10 @@
 		94AA88D51EEC3066000B4C13 /* CateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateViewController.swift; sourceTree = "<group>"; };
 		94AA88D71EEC3076000B4C13 /* CateViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateViewCell.swift; sourceTree = "<group>"; };
 		94AA88DA1EEC4895000B4C13 /* DAORevenueType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAORevenueType.swift; sourceTree = "<group>"; };
+		94B428321EF373250040DB51 /* DAOReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOReport.swift; sourceTree = "<group>"; };
+		94B428351EF377C00040DB51 /* CommonReportController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonReportController.swift; sourceTree = "<group>"; };
+		94B428371EF37A6E0040DB51 /* CommonReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonReportCell.swift; sourceTree = "<group>"; };
+		94B428391EF37BE90040DB51 /* CommonReportModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonReportModel.swift; sourceTree = "<group>"; };
 		94EF650C1EF2770A00F6C2BD /* TransactionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		94EF650E1EF27C0000F6C2BD /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		94EF65101EF2D20300F6C2BD /* MainViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewCell.swift; sourceTree = "<group>"; };
@@ -225,6 +233,7 @@
 		947FCF1F1EEBDFE300450250 /* View_Controller */ = {
 			isa = PBXGroup;
 			children = (
+				94B428341EF377A50040DB51 /* Report */,
 				94EF651E1EF31E4E00F6C2BD /* User */,
 				94AA88D41EEC3015000B4C13 /* Category */,
 				94AA88CF1EEC27F7000B4C13 /* Menu */,
@@ -241,6 +250,7 @@
 				947FCF2C1EEBE38000450250 /* RevenueType.swift */,
 				948CDD541EED430300319921 /* User.swift */,
 				94EF650C1EF2770A00F6C2BD /* TransactionModel.swift */,
+				94B428391EF37BE90040DB51 /* CommonReportModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -301,8 +311,18 @@
 				94AA88DA1EEC4895000B4C13 /* DAORevenueType.swift */,
 				94EF65121EF2D70800F6C2BD /* DAOTransactionList.swift */,
 				94EF651C1EF30D5900F6C2BD /* DAOUser.swift */,
+				94B428321EF373250040DB51 /* DAOReport.swift */,
 			);
 			name = DAO;
+			sourceTree = "<group>";
+		};
+		94B428341EF377A50040DB51 /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				94B428351EF377C00040DB51 /* CommonReportController.swift */,
+				94B428371EF37A6E0040DB51 /* CommonReportCell.swift */,
+			);
+			name = Report;
 			sourceTree = "<group>";
 		};
 		94EF651E1EF31E4E00F6C2BD /* User */ = {
@@ -598,9 +618,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B428361EF377C00040DB51 /* CommonReportController.swift in Sources */,
 				94EF650D1EF2770A00F6C2BD /* TransactionModel.swift in Sources */,
 				948CDD4F1EED32AB00319921 /* ImageCateController.swift in Sources */,
 				947FCF291EEBE12500450250 /* CommonFunction.swift in Sources */,
+				94B4283A1EF37BE90040DB51 /* CommonReportModel.swift in Sources */,
 				94AA88D31EEC2829000B4C13 /* MenuViewCell.swift in Sources */,
 				947FCF271EEBE11500450250 /* ValidationTextField.swift in Sources */,
 				947FCF321EEBE3F900450250 /* RegisterViewController.swift in Sources */,
@@ -613,7 +635,9 @@
 				94EF65111EF2D20300F6C2BD /* MainViewCell.swift in Sources */,
 				94AA88D11EEC2810000B4C13 /* MenuViewController.swift in Sources */,
 				746445421EEBD5EC002EA7F3 /* AppDelegate.swift in Sources */,
+				94B428331EF373250040DB51 /* DAOReport.swift in Sources */,
 				94EF651D1EF30D5900F6C2BD /* DAOUser.swift in Sources */,
+				94B428381EF37A6E0040DB51 /* CommonReportCell.swift in Sources */,
 				948CDD531EED38EE00319921 /* AddNewCateController.swift in Sources */,
 				94EF65131EF2D70800F6C2BD /* DAOTransactionList.swift in Sources */,
 				947FCF2D1EEBE38000450250 /* RevenueType.swift in Sources */,
