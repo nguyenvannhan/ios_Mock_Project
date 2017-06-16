@@ -19,6 +19,7 @@ import Foundation
 import Foundation
 
 class RevenueType {
+    var key: String?
     var name: String?
     var image: String?
     

@@ -15,9 +15,12 @@ class LoginController: UIViewController {
     @IBOutlet weak var txtPassword: ValidationTextField!
     
     let commonFunction: CommonFunction = CommonFunction()
+    let daoUser: DAOUser = DAOUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -36,7 +39,7 @@ class LoginController: UIViewController {
             present(alertController, animated: true, completion: nil)
         } else {
             //Đăng nhập thông qua API của Firebase với email và password dã đăng ký
-            Auth.auth().signIn(withEmail: txtEmail.text!, password: txtPassword.text!) { (user, error) in
+            daoUser.login(email: txtEmail.text!, password: txtPassword.text!, completionHandler: { (error) in
                 if error != nil {
                     //Nếu lỗi thì hiện thông báo lỗi
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -46,11 +49,10 @@ class LoginController: UIViewController {
                     
                     self.present(alertController, animated: true, completion: nil)
                 } else {
-                    //Thành công, chuyển sang trang main
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController")
-                    self.present(vc!, animated: true, completion: nil)
+                   let mainVC = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                    self.navigationController?.setViewControllers([mainVC], animated: true)
                 }
-            }
+            })
         }
     }
     

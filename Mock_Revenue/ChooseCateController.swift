@@ -1,37 +1,39 @@
 //
-//  CateViewController.swift
+//  ChooseCateController.swift
 //  Mock_Revenue
 //
-//  Created by vannhan on 6/10/17.
+//  Created by vannhan on 6/15/17.
 //  Copyright © 2017 Cntt11. All rights reserved.
 //
 
 import UIKit
 
-class CateViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+protocol SetValuePreviousVC {
+    func returnData(idType: Int?, revenueType: RevenueType?)
+}
+
+class ChooseCateController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var sgmCateType: UISegmentedControl!
     @IBOutlet weak var tblCateList: UITableView!
-    @IBOutlet weak var sgmTypeCate: UISegmentedControl!
-    
-    var revenueTypeList: [RevenueType] = []
-    var isOutcome = true
     
     let daoRevenueType: DAORevenueType = DAORevenueType()
+    var revenueTypeList: [RevenueType] = []
+    var isOutcome = true
+    var myDelegate: SetValuePreviousVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Revenue Type"
         self.tblCateList.delegate = self
         self.tblCateList.dataSource = self
         
         User.uid = "i6iRZSHqpEMeKsT0F3INlk3Qa9Z2"
-        
         getData()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,19 +45,31 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tblCateList.dequeueReusableCell(withIdentifier: "ChooseCateCell") as! ChooseCateCell
         let revenueType = revenueTypeList[indexPath.row]
         
-        let cell = tblCateList.dequeueReusableCell(withIdentifier: "CateViewCell") as! CateViewCell
-        
-        cell.configure(typeRevenue: revenueType)
+        cell.configure(revenueType: revenueType)
         
         return cell
     }
     
-    @IBAction func sgmChange(_ sender: Any) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let revenueType = revenueTypeList[indexPath.row] as RevenueType
+        var idType = 0
+        
+        if !isOutcome {
+            idType = 1
+        }
+        
+        myDelegate?.returnData(idType: idType, revenueType: revenueType)
+        
+        _ = navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func sgmTypeChange(_ sender: Any) {
         self.revenueTypeList = []
         self.tblCateList.reloadData()
-        if sgmTypeCate.selectedSegmentIndex == 0 {
+        if sgmCateType.selectedSegmentIndex == 0 {
             isOutcome = true
         } else {
             isOutcome = false
@@ -68,7 +82,6 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
         if isOutcome {
             daoRevenueType.getOutComeType(completionHandler: { (revenueTypeList, error) in
                 if error == nil {
-                    self.revenueTypeList = []
                     self.revenueTypeList = revenueTypeList!
                     
                     DispatchQueue.main.async {
