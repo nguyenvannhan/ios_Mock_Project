@@ -17,8 +17,7 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = String(format: "%g", User.amount!)
-        print(User.uid!)
+        configureNavigation()
         
         getData()
     }
@@ -26,7 +25,16 @@ class MainViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        configureNavigation()
+        
         getData()
+    }
+    
+    func configureNavigation() {
+        self.navigationItem.title = String(format: "%g", User.amount!)
+        
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.hidesBackButton = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +51,6 @@ class MainViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return transactionList.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewCell", for: indexPath) as! MainViewCell
@@ -83,5 +90,11 @@ class MainViewController: UITableViewController {
             let editVC = segue.destination as! EditTransactionViewController
             editVC.transactionModel = transactionModel
         }
+    }
+    
+    @IBAction func btnMenuClick(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        vc.indexTemp = 0
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

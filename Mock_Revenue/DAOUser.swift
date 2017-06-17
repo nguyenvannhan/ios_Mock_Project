@@ -99,4 +99,14 @@ class DAOUser {
             }
         })
     }
+    
+    func logout(completionHandler: @escaping (_ error: Error?) -> Void) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            completionHandler(nil)
+        } catch let signOutError as NSError {
+            completionHandler(signOutError)
+        }
+    }
 }

@@ -20,12 +20,23 @@ class ChangePassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        configureNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigation()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configureNavigation() {
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.hidesBackButton = true
     }
 
     @IBAction func btnChangeClick(_ sender: UIButton) {
@@ -43,7 +54,7 @@ class ChangePassViewController: UIViewController {
             } else {
                 daoUser.changePassword(currentPassword: txtCurrentPassword.text!, newPassword: txtNewPassword.text!, completionHandler: { (error) in
                     if error == nil {
-                        let alertController = UIAlertController(title: "Success", message: "Chane Password Success!!!", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Success", message: "Change Password Success!!!", preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
@@ -58,4 +69,7 @@ class ChangePassViewController: UIViewController {
         }
     }
     
+    @IBAction func btnMenuClick(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

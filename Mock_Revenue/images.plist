@@ -48,5 +48,7 @@
 	<string>gasoline</string>
 	<key>clothes</key>
 	<string>clothes</string>
+	<key>chart</key>
+	<string>chart</string>
 </dict>
 </plist>

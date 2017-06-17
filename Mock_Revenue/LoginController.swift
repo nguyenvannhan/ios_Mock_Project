@@ -51,8 +51,7 @@ class LoginController: UIViewController {
                 } else {
                     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-                    UIApplication.shared.keyWindow?.rootViewController = viewController
-                    self.navigationController?.popToRootViewController(animated: true)
+                    self.navigationController?.pushViewController(viewController, animated: true)
                 }
             })
         }

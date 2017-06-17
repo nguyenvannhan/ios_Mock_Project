@@ -18,14 +18,12 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        User.uid = "i6iRZSHqpEMeKsT0F3INlk3Qa9Z2"
-        
         let daoReport: DAOReport = DAOReport()
         
         self.reportCollectionView.delegate = self
         self.reportCollectionView.dataSource = self
         
-        User.uid = "i6iRZSHqpEMeKsT0F3INlk3Qa9Z2"
+        configureNavigation()
         
         daoReport.getDataList(completionHandler: { (reportList, error) in
             if error == nil {
@@ -35,6 +33,31 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
                 }
             }
         })
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let daoReport: DAOReport = DAOReport()
+        
+        self.reportCollectionView.delegate = self
+        self.reportCollectionView.dataSource = self
+        
+        configureNavigation()
+        
+        daoReport.getDataList(completionHandler: { (reportList, error) in
+            if error == nil {
+                self.reportList = reportList!
+                DispatchQueue.main.async {
+                    self.reportCollectionView.reloadData()
+                }
+            }
+        })
+    }
+    
+    func configureNavigation() {
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.hidesBackButton = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,5 +81,11 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         cell.configure(model: reportModel)
         
         return cell
+    }
+    
+    @IBAction func btnMenuClick(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        vc.indexTemp = 2
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

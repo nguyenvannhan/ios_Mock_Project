@@ -8,22 +8,42 @@
 
 import UIKit
 
+protocol GetMenuIndex {
+    func setValueIndex(index: Int)
+}
+
 class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var menuList: [TypeMenu] = TypeMenu.getList()
     
     @IBOutlet weak var menuTableView: UITableView!
     
+    var indexTemp: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.menuTableView.delegate = self
         self.menuTableView.dataSource = self
+        
+        configureNavigation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigation()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func configureNavigation() {
+        
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationItem.hidesBackButton = true
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,8 +75,51 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = self.menuTableView.cellForRow(at: indexPath) as! MenuViewCell
         
         if cell.lbMenuCellName.text == "Revenue List" {
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController")
-            self.present(vc!, animated: true, completion: nil)
+            if indexTemp == 0 {
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+        if cell.lbMenuCellName.text == "Revenue Type" {
+            if indexTemp == 1 {
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "CateViewController") as! CateViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+        if cell.lbMenuCellName.text == "Report" {
+            if indexTemp == 2 {
+                self.navigationController?.popViewController(animated: true)
+            } else {
+                let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommonReportController") as! CommonReportController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+        if cell.lbMenuCellName.text == "Change Password" {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePassViewController") as! ChangePassViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+        if cell.lbMenuCellName.text == "Logout" {
+            let daoUser = DAOUser()
+            
+            daoUser.logout(completionHandler: { (error) in
+                if error == nil {
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginController") as! LoginController
+                    self.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let alertController = UIAlertController(title: "Can't Logout", message: error?.localizedDescription, preferredStyle: .alert)
+                    
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                }
+            })
         }
     }
 

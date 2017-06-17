@@ -88,4 +88,10 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
             })
         }
     }
+    
+    @IBAction func btnMenuClick(_ sender: Any) {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        vc.indexTemp = 1
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

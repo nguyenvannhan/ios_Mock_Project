@@ -37,6 +37,7 @@ class TypeMenu {
         
         menus.append(Menu(image: UIImage(named: "list.png"), name: "Revenue List"))
         menus.append(Menu(image: UIImage(named: "setting_1.png"), name: "Revenue Type"))
+        menus.append(Menu(image: UIImage(named: "chart.png"), name: "Report"))
         
         return TypeMenu(nameType: "Wallet Management", menus: menus)
     }
@@ -44,6 +45,7 @@ class TypeMenu {
     class func Invadially() -> TypeMenu {
         var menus = [Menu]()
         
+        menus.append(Menu(image: UIImage(named: "setting_1.png"), name: "Change Password"))
         menus.append(Menu(image: UIImage(named: "setting.png"), name: "Logout"))
         
         return TypeMenu(nameType: "Invadually", menus: menus)
