@@ -51,6 +51,7 @@ class LoginController: UIViewController {
                 } else {
                     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                    self.navigationController?.viewControllers = [viewController]
                     self.navigationController?.pushViewController(viewController, animated: true)
                 }
             })

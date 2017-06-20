@@ -79,6 +79,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.navigationController?.popViewController(animated: true)
             } else {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                self.navigationController?.viewControllers = [vc]
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -88,6 +89,7 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.navigationController?.popViewController(animated: true)
             } else {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "CateViewController") as! CateViewController
+                self.navigationController?.viewControllers = [vc]
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -97,12 +99,14 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.navigationController?.popViewController(animated: true)
             } else {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "CommonReportController") as! CommonReportController
+                self.navigationController?.viewControllers = [vc]
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
         if cell.lbMenuCellName.text == "Change Password" {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChangePassViewController") as! ChangePassViewController
+            self.navigationController?.viewControllers = [vc]
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

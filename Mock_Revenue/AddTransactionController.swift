@@ -87,7 +87,17 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
                 let date = dateFomatter.string(from: dtpDate.date)
                 
                 let transactionModel = TransactionModel(imageType: revenueTypeTemp.image, nameType: revenueTypeTemp.name, idType: idType, note: txtNote.text, amount: Double(txtAmount.text!), date: date)
+                
+                for item in (self.navigationController?.viewControllers)! {
+                    print (item)
+                }
+                
                 daoTransaction.addNewTransaction(transactionModel: transactionModel, completionHandler: { (error) in
+                    
+                    for item in (self.navigationController?.viewControllers)! {
+                        print (item)
+                    }
+                    
                     if error == nil {
                         _ = self.navigationController?.popViewController(animated: true)
                     } else {

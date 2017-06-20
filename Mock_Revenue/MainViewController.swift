@@ -30,6 +30,7 @@ class MainViewController: UITableViewController {
         getData()
     }
     
+    //Configure Navigation for view
     func configureNavigation() {
         self.navigationItem.title = String(format: "%g", User.amount!)
         

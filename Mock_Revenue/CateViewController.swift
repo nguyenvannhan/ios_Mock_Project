@@ -20,14 +20,28 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Revenue Type"
+    
         self.tblCateList.delegate = self
         self.tblCateList.dataSource = self
         
-        User.uid = "i6iRZSHqpEMeKsT0F3INlk3Qa9Z2"
+        configureNavigation()
         
         getData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        configureNavigation()
+        
+        getData()
+    }
+    
+    func configureNavigation() {
+        self.navigationItem.title = "Revenue Type List"
+        
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.hidesBackButton = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,6 +93,7 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             daoRevenueType.getInComeType(completionHandler: { (revenueTypeList, error) in
                 if error == nil {
+                    self.revenueTypeList = []
                     self.revenueTypeList = revenueTypeList!
                     
                     DispatchQueue.main.async {
