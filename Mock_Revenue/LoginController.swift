@@ -21,6 +21,8 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
+        
+        checkSaveLogin()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,6 +51,11 @@ class LoginController: UIViewController {
                     
                     self.present(alertController, animated: true, completion: nil)
                 } else {
+                    
+                    UserDefaults.standard.set(true, forKey: "isLogined")
+                    UserDefaults.standard.set(self.txtEmail.text, forKey: "email")
+                    UserDefaults.standard.set(self.txtPassword.text, forKey: "password")
+                    
                     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
                     self.navigationController?.viewControllers = [viewController]
@@ -89,5 +96,34 @@ class LoginController: UIViewController {
             }
         }
     }
-
+    
+    func checkSaveLogin() {
+        if UserDefaults.standard.bool(forKey: "isLogined") {
+            let email = UserDefaults.standard.string(forKey: "email")
+            let password = UserDefaults.standard.string(forKey: "password")
+            
+            daoUser.login(email: email!, password: password!, completionHandler: { (error) in
+                if error != nil {
+                    //Nếu lỗi thì hiện thông báo lỗi
+                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                        
+                        
+                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alertController.addAction(defaultAction)
+                    
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    
+                    UserDefaults.standard.set(true, forKey: "isLogined")
+                    UserDefaults.standard.set(self.txtEmail.text, forKey: "email")
+                    UserDefaults.standard.set(self.txtPassword.text, forKey: "password")
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                    self.navigationController?.viewControllers = [viewController]
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                }
+            })
+        }
+    }
 }
