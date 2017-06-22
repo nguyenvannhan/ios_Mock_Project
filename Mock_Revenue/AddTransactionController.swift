@@ -82,6 +82,8 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
                 
                 self.present(alertController, animated: true, completion: nil)
             } else {
+                KRActivityIn.startActivityIndicator(uiView: self.view)
+                
                 let dateFomatter = DateFormatter()
                 dateFomatter.dateFormat = "dd/MM/yyyy"
                 let date = dateFomatter.string(from: dtpDate.date)
@@ -91,12 +93,15 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
                 daoTransaction.addNewTransaction(transactionModel: transactionModel, completionHandler: { (error) in
                     
                     if error == nil {
+                        KRActivityIn.stopActivityIndicator()
                         _ = self.navigationController?.popViewController(animated: true)
                     } else {
                         let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
+                        
+                        KRActivityIn.stopActivityIndicator()
                     }
                 })
             }

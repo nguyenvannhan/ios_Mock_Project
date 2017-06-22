@@ -59,6 +59,8 @@ class AddNewCateController: UIViewController, SendImageBack {
                 loaichi = false
             }
             
+            KRActivityIn.startActivityIndicator(uiView: self.view)
+            
             daoRevenueType.addNewRevenueType(loaiChi: loaichi, revenueType: revenueType, completionHandler: { (error) in
                 if (error != nil) {
                     let alertController = UIAlertController(title: "Error", message: "Add New Revenue Type Fail!", preferredStyle: .alert)
@@ -67,13 +69,18 @@ class AddNewCateController: UIViewController, SendImageBack {
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
+                    
+                    KRActivityIn.stopActivityIndicator()
                 } else {
-                    let alertController = UIAlertController(title: "Error", message: "Add New Revenue Type Success!", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Success", message: "Add New Revenue Type Success!", preferredStyle: .alert)
                     
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
+                    
+                    KRActivityIn.stopActivityIndicator()
+                    self.navigationController?.popViewController(animated: true)
                 }
             })
         }

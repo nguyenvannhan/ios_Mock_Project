@@ -64,6 +64,7 @@ class MainViewController: UITableViewController {
     }
     
     func getData() {
+        KRActivityIn.startActivityIndicator(uiView: self.view)
         daoTransactionList.getTransactionList(completionHandler: { (transactionList, error) in
             if error == nil {
                 self.transactionList = []
@@ -71,6 +72,7 @@ class MainViewController: UITableViewController {
                 self.transactionList.reverse()
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    KRActivityIn.stopActivityIndicator()
                 }
             } else {
                 let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
@@ -79,6 +81,7 @@ class MainViewController: UITableViewController {
                 alertController.addAction(defaultAction)
                 
                 self.present(alertController, animated: true, completion: nil)
+                KRActivityIn.stopActivityIndicator()
             }
         })
     }

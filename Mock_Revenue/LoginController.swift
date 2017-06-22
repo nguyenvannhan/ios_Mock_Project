@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class LoginController: UIViewController {
     
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
 
     @IBOutlet weak var txtEmail: ValidationTextField!
     @IBOutlet weak var txtPassword: ValidationTextField!
@@ -42,6 +41,8 @@ class LoginController: UIViewController {
             
             present(alertController, animated: true, completion: nil)
         } else {
+            KRActivityIn.startActivityIndicator(uiView: self.view)
+            
             //Đăng nhập thông qua API của Firebase với email và password dã đăng ký
             daoUser.login(email: txtEmail.text!, password: txtPassword.text!, completionHandler: { (error) in
                 if error != nil {
@@ -52,7 +53,11 @@ class LoginController: UIViewController {
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
-                } else {                    
+                    
+                    KRActivityIn.stopActivityIndicator()
+                } else {
+                    KRActivityIn.stopActivityIndicator()
+                    
                     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
                     self.navigationController?.viewControllers = [viewController]
@@ -99,6 +104,7 @@ class LoginController: UIViewController {
         let username = UserDefaults.standard.string(forKey: "email")
         let password = UserDefaults.standard.string(forKey: "password")
         if username != "" && password != "" {
+            KRActivityIn.startActivityIndicator(uiView: self.view)
             
             daoUser.login(email: username!, password: password!, completionHandler: { (error) in
                 if error != nil {
@@ -110,7 +116,11 @@ class LoginController: UIViewController {
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
+                    
+                    KRActivityIn.stopActivityIndicator()
                 } else {
+                    KRActivityIn.stopActivityIndicator()
+                    
                     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
                     self.navigationController?.viewControllers = [viewController]

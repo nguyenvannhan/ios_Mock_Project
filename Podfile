@@ -10,6 +10,7 @@ target 'Mock_Revenue' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'AMPopTip'
+  pod 'KRProgressHUD'
 
   target 'Mock_RevenueTests' do
     inherit! :search_paths

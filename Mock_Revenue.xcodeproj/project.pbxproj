@@ -17,6 +17,7 @@
 		746445571EEBD5EC002EA7F3 /* Mock_RevenueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746445561EEBD5EC002EA7F3 /* Mock_RevenueTests.swift */; };
 		746445621EEBD5EC002EA7F3 /* Mock_RevenueUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746445611EEBD5EC002EA7F3 /* Mock_RevenueUITests.swift */; };
 		746445701EEBD664002EA7F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7464456F1EEBD664002EA7F3 /* GoogleService-Info.plist */; };
+		94132F371EFB7B48006BCAE9 /* KRActivityIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94132F361EFB7B48006BCAE9 /* KRActivityIn.swift */; };
 		947FCF1E1EEBDA1A00450250 /* images.plist in Resources */ = {isa = PBXBuildFile; fileRef = 947FCF1D1EEBDA1A00450250 /* images.plist */; };
 		947FCF221EEBE01A00450250 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947FCF211EEBE01A00450250 /* LoginController.swift */; };
 		947FCF271EEBE11500450250 /* ValidationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 947FCF261EEBE11500450250 /* ValidationTextField.swift */; };
@@ -87,6 +88,7 @@
 		746445611EEBD5EC002EA7F3 /* Mock_RevenueUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock_RevenueUITests.swift; sourceTree = "<group>"; };
 		746445631EEBD5EC002EA7F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7464456F1EEBD664002EA7F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		94132F361EFB7B48006BCAE9 /* KRActivityIn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KRActivityIn.swift; sourceTree = "<group>"; };
 		947FCF1D1EEBDA1A00450250 /* images.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = images.plist; sourceTree = "<group>"; };
 		947FCF211EEBE01A00450250 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		947FCF261EEBE11500450250 /* ValidationTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidationTextField.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			children = (
 				947FCF261EEBE11500450250 /* ValidationTextField.swift */,
 				947FCF281EEBE12500450250 /* CommonFunction.swift */,
+				94132F361EFB7B48006BCAE9 /* KRActivityIn.swift */,
 			);
 			name = CommonGroup;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94B428361EF377C00040DB51 /* CommonReportController.swift in Sources */,
+				94132F371EFB7B48006BCAE9 /* KRActivityIn.swift in Sources */,
 				94EF650D1EF2770A00F6C2BD /* TransactionModel.swift in Sources */,
 				948CDD4F1EED32AB00319921 /* ImageCateController.swift in Sources */,
 				947FCF291EEBE12500450250 /* CommonFunction.swift in Sources */,
