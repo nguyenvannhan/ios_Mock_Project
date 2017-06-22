@@ -26,8 +26,7 @@ class ChooseCateController: UIViewController, UITableViewDelegate, UITableViewDa
         super.viewDidLoad()
         self.tblCateList.delegate = self
         self.tblCateList.dataSource = self
-        
-        User.uid = "i6iRZSHqpEMeKsT0F3INlk3Qa9Z2"
+
         getData()
     }
 

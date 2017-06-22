@@ -19,12 +19,14 @@ class DAOUser {
     func login(email: String, password: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
-                let uid = Auth.auth().currentUser?.uid
+                let uid = user?.uid
+                UserDefaults.standard.set(email, forKey: "email")
+                UserDefaults.standard.set(password, forKey: "password")
+                UserDefaults.standard.synchronize()
                 
                 self.ref = Database.database().reference()
                 self.handle = self.ref?.child("nguoi_dung").child(uid!).observe(.value, with: { (snapshot) in
                     if snapshot.exists() {
-                        print(snapshot)
                         if let postDict = snapshot.value as? [String: AnyObject] {
                             User.setInfo(json: postDict)
                             User.email = email
@@ -53,6 +55,10 @@ class DAOUser {
                 ] as [String : Any]
                 self.ref?.child("nguoi_dung").child(uid!).setValue(data, withCompletionBlock: { (errorUser, ref) in
                     if errorUser == nil {
+                        UserDefaults.standard.set(email, forKey: "email")
+                        UserDefaults.standard.set(password, forKey: "password")
+                        UserDefaults.standard.synchronize()
+                        
                         User.setInfo(name: name, age: age, amount: amount)
                         User.email = email
                         User.uid = uid!
@@ -94,6 +100,8 @@ class DAOUser {
                 completionHandler(error)
             }else{
                 Auth.auth().currentUser?.updatePassword(to: newPassword, completion: { (error) in
+                    UserDefaults.standard.set(newPassword, forKey: "password")
+                    UserDefaults.standard.synchronize()
                     completionHandler(error)
                 })
             }
@@ -104,6 +112,10 @@ class DAOUser {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            UserDefaults.standard.set("", forKey: "email")
+            UserDefaults.standard.set("", forKey: "password")
+            UserDefaults.standard.synchronize()
+            
             completionHandler(nil)
         } catch let signOutError as NSError {
             completionHandler(signOutError)
