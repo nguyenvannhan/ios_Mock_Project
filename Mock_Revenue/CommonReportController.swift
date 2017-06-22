@@ -23,6 +23,7 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         self.reportCollectionView.delegate = self
         self.reportCollectionView.dataSource = self
         
+        checkInternet()
         configureNavigation()
         
         KRActivityIn.startActivityIndicator(uiView: self.view)
@@ -48,6 +49,7 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         self.reportCollectionView.delegate = self
         self.reportCollectionView.dataSource = self
         
+        checkInternet()
         configureNavigation()
         
         daoReport.getDataList(completionHandler: { (reportList, error) in
@@ -92,5 +94,45 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         vc.indexTemp = 2
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func checkInternet() {
+        var flag: Bool = false
+        
+        var times = 0
+        
+        while !flag {
+            
+            let status = DAOInternet().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                flag = false
+                break
+            case .online(.wwan):
+                flag = true
+                break
+            case .online(.wiFi):
+                flag = true
+                break
+            }
+            
+            times += 1
+            
+            if (times == 50) {
+                break
+            }
+        }
+        
+        if !flag {
+            let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)
+            
+            
+            let defaultAction = UIAlertAction(title: "Reload", style: .default, handler: { (action: UIAlertAction) in
+                self.checkInternet()
+            })
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

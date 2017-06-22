@@ -17,6 +17,7 @@ class MainViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkInternet()
         configureNavigation()
         
         getData()
@@ -28,6 +29,7 @@ class MainViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        checkInternet()
         configureNavigation()
         
         getData()
@@ -130,6 +132,8 @@ class MainViewController: UITableViewController {
     }
     
     func deleteTransaction(transaction: TransactionModel) {
+        checkInternet()
+        
         KRActivityIn.startActivityIndicator(uiView: self.view)
         
         self.daoTransactionList.deleteTransaction(transactionModel: transaction, completionHandler: { (error) in
@@ -169,5 +173,45 @@ class MainViewController: UITableViewController {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         vc.indexTemp = 0
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func checkInternet() {
+        var flag: Bool = false
+        
+        var times = 0
+        
+        while !flag {
+            
+            let status = DAOInternet().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                flag = false
+                break
+            case .online(.wwan):
+                flag = true
+                break
+            case .online(.wiFi):
+                flag = true
+                break
+            }
+            
+            times += 1
+            
+            if (times == 50) {
+                break
+            }
+        }
+        
+        if !flag {
+            let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)
+            
+            
+            let defaultAction = UIAlertAction(title: "Reload", style: .default, handler: { (action: UIAlertAction) in
+                self.checkInternet()
+            })
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
     }
 }

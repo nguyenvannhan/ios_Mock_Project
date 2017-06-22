@@ -126,5 +126,4 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             })
         }
     }
-
 }

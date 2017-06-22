@@ -52,6 +52,8 @@ class AddNewCateController: UIViewController, SendImageBack {
         if txtNameRevenueType.text == "" {
             txtNameRevenueType.setError(error: true, message: "Please Enter Revenue Type Name")
         } else {
+            checkInternet()
+            
             let revenueType: RevenueType = RevenueType(name: txtNameRevenueType.text, image: imageTemp)
             var loaichi: Bool = true
             
@@ -92,6 +94,46 @@ class AddNewCateController: UIViewController, SendImageBack {
         
         if str?.characters.count == 0 {
             txt?.setError(error: true, message: "Please Enter Revenue Type Name")
+        }
+    }
+    
+    func checkInternet() {
+        var flag: Bool = false
+        
+        var times = 0
+        
+        while !flag {
+            
+            let status = DAOInternet().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                flag = false
+                break
+            case .online(.wwan):
+                flag = true
+                break
+            case .online(.wiFi):
+                flag = true
+                break
+            }
+            
+            times += 1
+            
+            if (times == 50) {
+                break
+            }
+        }
+        
+        if !flag {
+            let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)
+            
+            
+            let defaultAction = UIAlertAction(title: "Reload", style: .default, handler: { (action: UIAlertAction) in
+                self.checkInternet()
+            })
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 }

@@ -85,6 +85,8 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
             
             self.present(alertController, animated: true, completion: nil)
         } else {
+            checkInternet()
+            
             if txtAmount.text == "0" || txtAmount.text == "" {
                 let alertController = UIAlertController(title: "Error", message: "Please enter amount!", preferredStyle: .alert)
                 
@@ -126,5 +128,44 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
             self.idType = idType
         }
     }
-
+    
+    func checkInternet() {
+        var flag: Bool = false
+        
+        var times = 0
+        
+        while !flag {
+            
+            let status = DAOInternet().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                flag = false
+                break
+            case .online(.wwan):
+                flag = true
+                break
+            case .online(.wiFi):
+                flag = true
+                break
+            }
+            
+            times += 1
+            
+            if (times == 50) {
+                break
+            }
+        }
+        
+        if !flag {
+            let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)
+            
+            
+            let defaultAction = UIAlertAction(title: "Reload", style: .default, handler: { (action: UIAlertAction) in
+                self.checkInternet()
+            })
+            alertController.addAction(defaultAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
 }
