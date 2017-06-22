@@ -20,6 +20,9 @@ class MainViewController: UITableViewController {
         configureNavigation()
         
         getData()
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.actionLongPress(longPressRecognizer:)))
+        self.view.addGestureRecognizer(longPressRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +35,7 @@ class MainViewController: UITableViewController {
     
     //Configure Navigation for view
     func configureNavigation() {
-        self.navigationItem.title = String(format: "%g", User.amount!)
+        self.navigationItem.title = String(format: "%.0f", User.amount!) + " VNĐ"
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.hidesBackButton = true
@@ -86,6 +89,14 @@ class MainViewController: UITableViewController {
         })
     }
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let transaction = transactionList[indexPath.row]
+            
+            deleteTransaction(transaction: transaction)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditTransaction" {
             let indexPath = self.tableView.indexPathForSelectedRow
@@ -94,6 +105,64 @@ class MainViewController: UITableViewController {
             let editVC = segue.destination as! EditTransactionViewController
             editVC.transactionModel = transactionModel
         }
+    }
+    
+    func actionLongPress(longPressRecognizer: UILongPressGestureRecognizer) {
+        if longPressRecognizer.state == .began {
+            let touchPoint = longPressRecognizer.location(in: self.view)
+            if let indexPath = self.tableView.indexPathForRow(at: touchPoint) {
+                let alertController = UIAlertController(title: "Delete Transaction", message: "Do you want to delete selected transaction?", preferredStyle: .alert)
+                
+                let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) -> Void in
+                    let transaction = self.transactionList[indexPath.row]
+                    
+                    self.deleteTransaction(transaction: transaction)
+                })
+                
+                let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+                
+                alertController.addAction(yesAction)
+                alertController.addAction(noAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func deleteTransaction(transaction: TransactionModel) {
+        KRActivityIn.startActivityIndicator(uiView: self.view)
+        
+        self.daoTransactionList.deleteTransaction(transactionModel: transaction, completionHandler: { (error) in
+            if error == nil {
+                let alertController = UIAlertController(title: "Success Delete", message: "Delete Success", preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+                self.configureNavigation()
+                
+                DispatchQueue.main.async {
+                    self.getData()
+                }
+                
+                KRActivityIn.stopActivityIndicator()
+            } else {
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                
+                self.present(alertController, animated: true, completion: nil)
+                
+                DispatchQueue.main.async {
+                    self.getData()
+                }
+                
+                KRActivityIn.stopActivityIndicator()
+            }
+        })
     }
     
     @IBAction func btnMenuClick(_ sender: Any) {

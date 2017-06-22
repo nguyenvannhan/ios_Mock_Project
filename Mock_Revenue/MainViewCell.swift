@@ -20,7 +20,7 @@ class MainViewCell: UITableViewCell {
         self.imgCate.image = UIImage(named: transactionM.imageType!)
         self.lbDate.text = transactionM.date
         self.lbNameCate.text = "Loại: " + transactionM.nameType!
-        self.lbAmount.text = String(format: "%g", transactionM.amount!) + " VNĐ"
+        self.lbAmount.text = String(format: "%.0f", transactionM.amount!) + " VNĐ"
         self.lbNote.text = transactionM.note
         
         if transactionM.idType == 0 {

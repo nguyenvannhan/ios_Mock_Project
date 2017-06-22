@@ -22,6 +22,7 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
     var revenueTypeTemp: RevenueType = RevenueType(name: "Please choose Revenue Type!", image: "cate_default.png")
     var transactionModel: TransactionModel?
     var idType: Int?
+    var currentAmount: Double = 0
     
     let dateFormatter = DateFormatter()
     
@@ -33,9 +34,10 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
         revenueTypeTemp.image = transactionModel?.imageType
         self.lbNameCate.text = revenueTypeTemp.name
         self.imgCate.image = UIImage(named: revenueTypeTemp.image!)
-        self.txtAmount.text = String(format: "%g", (transactionModel?.amount)!)
+        self.txtAmount.text = String(format: "%.0f", (transactionModel?.amount)!)
         self.txtNote.text = transactionModel?.note
         self.idType = transactionModel?.idType
+        self.currentAmount = (transactionModel?.amount)!
         
         dateFormatter.dateFormat = "dd/MM/yyyy"
         dtpDate.date = dateFormatter.date(from: (transactionModel?.date)!)!
@@ -100,7 +102,7 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
                 let transactionModelc = TransactionModel(imageType: revenueTypeTemp.image, nameType: revenueTypeTemp.name, idType: idType, note: txtNote.text, amount: Double(txtAmount.text!), date: date)
                 transactionModelc.key = transactionModel?.key
                 
-                daoTransaction.editTransaction(transactionModel: transactionModelc, completionHandler: { (error) in
+                daoTransaction.editTransaction(currentAmount: currentAmount, transactionModel: transactionModelc, completionHandler: { (error) in
                     if error == nil {
                         KRActivityIn.stopActivityIndicator()
                         

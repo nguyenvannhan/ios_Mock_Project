@@ -79,6 +79,7 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func getData() {
+        KRActivityIn.startActivityIndicator(uiView: self.view)
         if isOutcome {
             daoRevenueType.getOutComeType(completionHandler: { (revenueTypeList, error) in
                 if error == nil {
@@ -86,6 +87,7 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.revenueTypeList = revenueTypeList!
                     
                     DispatchQueue.main.async {
+                        KRActivityIn.stopActivityIndicator()
                         self.tblCateList.reloadData()
                     }
                 }
@@ -97,6 +99,7 @@ class CateViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     self.revenueTypeList = revenueTypeList!
                     
                     DispatchQueue.main.async {
+                        KRActivityIn.stopActivityIndicator()
                         self.tblCateList.reloadData()
                     }
                 }

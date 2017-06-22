@@ -40,14 +40,18 @@ class RegisterViewController: UIViewController {
             
             present(alertController, animated: true, completion: nil)
         } else {
+            KRActivityIn.startActivityIndicator(uiView: self.view)
             //Đăng ký tài khoản sử dụng API của Firebase
             daoUser.registry(email: txtEmail.text!, password: txtPassword.text!, name: txtName.text!, age: Int(txtAge.text!)!, amount: Double(txtAmount.text!)!, completionHandler: { (error) in 
                 if error == nil {
-                    //Nếu thành công chuyển qua trnag main
-                    print("You have successfully sign up")
+                    KRActivityIn.stopActivityIndicator()
                     
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController")
-                    self.present(vc!, animated: true, completion: nil)
+                    //Nếu thành công chuyển qua trnag main
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                    self.navigationController?.viewControllers = [viewController]
+                    self.navigationController?.pushViewController(viewController, animated: true)
+                    
                 } else {
                     //Nếu thất bại hiện thông báo lỗi
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -56,6 +60,8 @@ class RegisterViewController: UIViewController {
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
+                    
+                    KRActivityIn.stopActivityIndicator()
                 }
             })
         }

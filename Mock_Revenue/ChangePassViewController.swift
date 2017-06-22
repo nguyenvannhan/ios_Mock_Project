@@ -52,6 +52,7 @@ class ChangePassViewController: UIViewController {
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
             } else {
+                KRActivityIn.startActivityIndicator(uiView: self.view)
                 daoUser.changePassword(currentPassword: txtCurrentPassword.text!, newPassword: txtNewPassword.text!, completionHandler: { (error) in
                     if error == nil {
                         let alertController = UIAlertController(title: "Success", message: "Change Password Success!!!", preferredStyle: .alert)
@@ -64,6 +65,8 @@ class ChangePassViewController: UIViewController {
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
                     }
+                    
+                    KRActivityIn.stopActivityIndicator()
                 })
             }
         }

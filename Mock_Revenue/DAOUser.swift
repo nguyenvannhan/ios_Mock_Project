@@ -75,7 +75,7 @@ class DAOUser {
                                 for expenseType in expenseTypeList! {
                                     let data = [
                                         "ten": expenseType.name,
-                                        "hinh_anh": expenseType.image! + ".png"
+                                        "hinh_anh": expenseType.image!
                                         ] as [String: AnyObject]
                                     
                                     self.ref?.child("nguoi_dung").child(uid!).child("loai_chi").childByAutoId().setValue(data)

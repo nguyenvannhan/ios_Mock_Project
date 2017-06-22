@@ -29,6 +29,7 @@
 		948CDD511EED333000319921 /* ImageCateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948CDD501EED333000319921 /* ImageCateCell.swift */; };
 		948CDD531EED38EE00319921 /* AddNewCateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948CDD521EED38EE00319921 /* AddNewCateController.swift */; };
 		948CDD551EED430300319921 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948CDD541EED430300319921 /* User.swift */; };
+		94A98EE11EFBFE8000BE83D3 /* DAOInternet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A98EE01EFBFE8000BE83D3 /* DAOInternet.swift */; };
 		94AA88D11EEC2810000B4C13 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88D01EEC2810000B4C13 /* MenuViewController.swift */; };
 		94AA88D31EEC2829000B4C13 /* MenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88D21EEC2829000B4C13 /* MenuViewCell.swift */; };
 		94AA88D61EEC3066000B4C13 /* CateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94AA88D51EEC3066000B4C13 /* CateViewController.swift */; };
@@ -100,6 +101,7 @@
 		948CDD501EED333000319921 /* ImageCateCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCateCell.swift; sourceTree = "<group>"; };
 		948CDD521EED38EE00319921 /* AddNewCateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewCateController.swift; sourceTree = "<group>"; };
 		948CDD541EED430300319921 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		94A98EE01EFBFE8000BE83D3 /* DAOInternet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DAOInternet.swift; sourceTree = "<group>"; };
 		94AA88D01EEC2810000B4C13 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		94AA88D21EEC2829000B4C13 /* MenuViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewCell.swift; sourceTree = "<group>"; };
 		94AA88D51EEC3066000B4C13 /* CateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				94EF65121EF2D70800F6C2BD /* DAOTransactionList.swift */,
 				94EF651C1EF30D5900F6C2BD /* DAOUser.swift */,
 				94B428321EF373250040DB51 /* DAOReport.swift */,
+				94A98EE01EFBFE8000BE83D3 /* DAOInternet.swift */,
 			);
 			name = DAO;
 			sourceTree = "<group>";
@@ -630,6 +633,7 @@
 				94AA88D31EEC2829000B4C13 /* MenuViewCell.swift in Sources */,
 				947FCF271EEBE11500450250 /* ValidationTextField.swift in Sources */,
 				947FCF321EEBE3F900450250 /* RegisterViewController.swift in Sources */,
+				94A98EE11EFBFE8000BE83D3 /* DAOInternet.swift in Sources */,
 				94AA88DB1EEC4895000B4C13 /* DAORevenueType.swift in Sources */,
 				94EF65171EF2E2BF00F6C2BD /* ChooseCateCell.swift in Sources */,
 				947FCF221EEBE01A00450250 /* LoginController.swift in Sources */,

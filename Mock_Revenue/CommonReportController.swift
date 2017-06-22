@@ -25,12 +25,17 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         
         configureNavigation()
         
+        KRActivityIn.startActivityIndicator(uiView: self.view)
+        
         daoReport.getDataList(completionHandler: { (reportList, error) in
             if error == nil {
                 self.reportList = reportList!
                 DispatchQueue.main.async {
                     self.reportCollectionView.reloadData()
+                    KRActivityIn.stopActivityIndicator()
                 }
+            } else {
+                KRActivityIn.stopActivityIndicator()
             }
         })
     }
