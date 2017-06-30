@@ -100,33 +100,33 @@ class LoginController: UIViewController {
     }
     
     func checkSaveLogin() {
-
-        let username = UserDefaults.standard.string(forKey: "email")
-        let password = UserDefaults.standard.string(forKey: "password")
-        if username != "" && password != "" {
-            KRActivityIn.startActivityIndicator(uiView: self.view)
+        if let username = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {
+            if username != "" && password != "" {
+                KRActivityIn.startActivityIndicator(uiView: self.view)
+                
+                daoUser.login(email: username, password: password, completionHandler: { (error) in
+                    if error != nil {
+                        //Nếu lỗi thì hiện thông báo lỗi
+                        let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                        
+                        
+                        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alertController.addAction(defaultAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                        
+                        KRActivityIn.stopActivityIndicator()
+                    } else {
+                        KRActivityIn.stopActivityIndicator()
+                        
+                        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+                        self.navigationController?.viewControllers = [viewController]
+                        self.navigationController?.pushViewController(viewController, animated: true)
+                    }
+                })
+            }
             
-            daoUser.login(email: username!, password: password!, completionHandler: { (error) in
-                if error != nil {
-                    //Nếu lỗi thì hiện thông báo lỗi
-                    let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                        
-                        
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
-                    
-                    self.present(alertController, animated: true, completion: nil)
-                    
-                    KRActivityIn.stopActivityIndicator()
-                } else {
-                    KRActivityIn.stopActivityIndicator()
-                    
-                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-                    self.navigationController?.viewControllers = [viewController]
-                    self.navigationController?.pushViewController(viewController, animated: true)
-                }
-            })
         }
     }
 }

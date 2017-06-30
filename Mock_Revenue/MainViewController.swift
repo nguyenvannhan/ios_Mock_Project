@@ -8,9 +8,11 @@
 
 import UIKit
 
-class MainViewController: UITableViewController {
+class MainViewController: UITableViewController, UISearchResultsUpdating {
     
     var transactionList: [TransactionModel] = []
+    var filteredList: [TransactionModel] = []
+    let searchController = UISearchController(searchResultsController: nil)
     
     let daoTransactionList: DAOTransactionList = DAOTransactionList()
     
@@ -19,6 +21,13 @@ class MainViewController: UITableViewController {
         
         checkInternet()
         configureNavigation()
+        
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
+        definesPresentationContext = true
         
         getData()
         
@@ -55,15 +64,26 @@ class MainViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactionList.count
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredList.count
+        } else {
+            return transactionList.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewCell", for: indexPath) as! MainViewCell
-        let transactionModel = transactionList[indexPath.row]
+        
+        let transactionModel: TransactionModel?
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            transactionModel = filteredList[indexPath.row]
+        } else {
+            transactionModel = transactionList[indexPath.row]
+        }
         
         // Configure the cell...
-        cell.configureCell(transactionM: transactionModel)
+        cell.configureCell(transactionM: transactionModel!)
 
         return cell
     }
@@ -93,16 +113,29 @@ class MainViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let transaction = transactionList[indexPath.row]
+            let transaction: TransactionModel?
             
-            deleteTransaction(transaction: transaction)
+            if searchController.isActive && searchController.searchBar.text != "" {
+                transaction = self.filteredList[(indexPath.row)]
+            } else {
+                transaction = self.transactionList[(indexPath.row)]
+            }
+            
+            deleteTransaction(transaction: transaction!)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditTransaction" {
             let indexPath = self.tableView.indexPathForSelectedRow
-            let transactionModel = self.transactionList[(indexPath?.row)!]
+            
+            let transactionModel: TransactionModel?
+            
+            if searchController.isActive && searchController.searchBar.text != "" {
+                transactionModel = self.filteredList[(indexPath?.row)!]
+            } else {
+                transactionModel = self.transactionList[(indexPath?.row)!]
+            }
             
             let editVC = segue.destination as! EditTransactionViewController
             editVC.transactionModel = transactionModel
@@ -213,5 +246,23 @@ class MainViewController: UITableViewController {
             
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+    
+    func filterContentForSearchText(searchText: String) {
+        filteredList = []
+        
+        for transaction in transactionList {
+            if transaction.note?.caseInsensitiveCompare(searchText) == ComparisonResult.orderedSame
+            || transaction.nameType?.caseInsensitiveCompare(searchText) == ComparisonResult.orderedSame
+                || transaction.date?.caseInsensitiveCompare(searchText) == ComparisonResult.orderedSame {
+                filteredList.append(transaction)
+            }
+        }
+        
+        tableView.reloadData()
     }
 }

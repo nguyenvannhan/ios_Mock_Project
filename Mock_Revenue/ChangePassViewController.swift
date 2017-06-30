@@ -73,6 +73,8 @@ class ChangePassViewController: UIViewController {
     }
     
     @IBAction func btnMenuClick(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        self.navigationController?.viewControllers = [vc]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

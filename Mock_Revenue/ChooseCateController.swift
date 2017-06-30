@@ -21,12 +21,25 @@ class ChooseCateController: UIViewController, UITableViewDelegate, UITableViewDa
     var revenueTypeList: [RevenueType] = []
     var isOutcome = true
     var myDelegate: SetValuePreviousVC?
+    var isEdit: Bool = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tblCateList.delegate = self
         self.tblCateList.dataSource = self
-
+        
+        if isEdit {
+            if isOutcome {
+                sgmCateType.setEnabled(true, forSegmentAt: 0)
+                sgmCateType.setEnabled(false, forSegmentAt: 1)
+                sgmCateType.selectedSegmentIndex = 0
+            } else {
+                sgmCateType.setEnabled(false, forSegmentAt: 0)
+                sgmCateType.setEnabled(true, forSegmentAt: 1)
+                sgmCateType.selectedSegmentIndex = 1
+            }
+        }
+        
         getData()
     }
 

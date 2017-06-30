@@ -69,8 +69,7 @@ class RegisterViewController: UIViewController {
     
     //Sự kiện click button Đăng nhập -> Chuyển qua trang đăng nhập
     @IBAction func btnSignInClick(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController")
-        self.present(vc!, animated: true, completion: nil)
+        _ = navigationController?.popViewController(animated: true)
     }
     
     //Validation textfield Email

@@ -60,6 +60,7 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
         
         // 2. Set self as a value to delegate
         chooseCateVC.myDelegate = self
+        chooseCateVC.isEdit = false
         
         // 3. Push SecondViewController
         self.navigationController?.pushViewController(chooseCateVC, animated: true)

@@ -71,6 +71,12 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
         
         // 2. Set self as a value to delegate
         chooseCateVC.myDelegate = self
+        chooseCateVC.isEdit = true
+        if transactionModel?.idType == 0 {
+            chooseCateVC.isOutcome = true
+        } else {
+            chooseCateVC.isOutcome = false
+        }
         
         // 3. Push SecondViewController
         self.navigationController?.pushViewController(chooseCateVC, animated: true)
