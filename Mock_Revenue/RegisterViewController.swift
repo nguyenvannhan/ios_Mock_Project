@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var txtAmount: ValidationTextField!
     @IBOutlet weak var txtAge: ValidationTextField!
     @IBOutlet weak var txtName: ValidationTextField!
+    @IBOutlet weak var myScrollView: UIScrollView!
     
     var commonFunction: CommonFunction = CommonFunction()
     var daoUser: DAOUser = DAOUser()
