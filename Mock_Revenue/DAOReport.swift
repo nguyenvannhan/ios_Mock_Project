@@ -31,10 +31,10 @@ class DAOReport {
             if error == nil {
                 self.transactionList = transactionList!
                 for transaction in self.transactionList {
-                    if transaction.date == date {
+                    if transaction.date == self.dateFomatter.string(from: self.currentDate) {
                         if transaction.idType == 0 {
                             totalExpense += transaction.amount!
-                            totalBalance += transaction.amount!
+                            totalBalance -= transaction.amount!
                         } else {
                             totalIncome += transaction.amount!
                             totalBalance += transaction.amount!
@@ -72,7 +72,7 @@ class DAOReport {
                     if transaction.date! >= sunday && transaction.date! <= saturday {
                         if transaction.idType == 0 {
                             totalExpense += transaction.amount!
-                            totalBalance += transaction.amount!
+                            totalBalance -= transaction.amount!
                         } else {
                             totalIncome += transaction.amount!
                             totalBalance += transaction.amount!
@@ -110,7 +110,7 @@ class DAOReport {
                     if transaction.date! >= firstDate && transaction.date! <= lastDate {
                         if transaction.idType == 0 {
                             totalExpense += transaction.amount!
-                            totalBalance += transaction.amount!
+                            totalBalance -= transaction.amount!
                         } else {
                             totalIncome += transaction.amount!
                             totalBalance += transaction.amount!
@@ -170,16 +170,16 @@ class DAOReport {
         daoCate.getInComeType(completionHandler: { (incomeTypeList, error) in
             if error == nil {
                 self.incomeTypeList = incomeTypeList!
-                dispatchGroup.leave()
             }
+             dispatchGroup.leave()
         })
         
         dispatchGroup.enter()
         daoCate.getOutComeType(completionHandler: { (outcomeTypeList, error) in
             if error == nil {
                 self.expenseTypeList = outcomeTypeList!
-                dispatchGroup.leave()
             }
+            dispatchGroup.leave()
         })
         
         dispatchGroup.notify(queue: DispatchQueue.global(qos: .background), execute: { () -> Void in
@@ -251,10 +251,22 @@ class DAOReport {
                     }
                     
                     let detailReport: ReportByCateModel = ReportByCateModel(nameType:
-                        outcomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                        outcomeType.name!, percent: (tong / Double(commonReport.totalExpense!)!) * 100)
                     detailOutcomeReport.append(detailReport)
                 }
             }
+            
+            print("Income")
+            for detail in detailIncomeReport {
+                print(detail.percent)
+            }
+            print("OutCome")
+            for detail in detailOutcomeReport {
+                print(detail.percent)
+            }
+            
+            detailIncomeReport = self.modifyDetailData(detailData: detailIncomeReport)
+            detailOutcomeReport = self.modifyDetailData(detailData: detailOutcomeReport)
             
             completionHandler(detailIncomeReport, detailOutcomeReport)
         })
@@ -285,5 +297,33 @@ class DAOReport {
         comps2.day = -1
         let endOfMonth = Calendar.current.date(byAdding: comps2, to: dateFomatter.date(from: getFirstDateOfMonth())!)
         return dateFomatter.string(from: endOfMonth!)
+    }
+    
+    func modifyDetailData(detailData: [ReportByCateModel]) -> [ReportByCateModel] {
+        var result: [ReportByCateModel] = []
+        var detailList: [ReportByCateModel] = detailData
+        
+        if !detailList.isEmpty {
+            detailList.sort(by: {$0.percent > $1.percent})
+            for detail in detailList {
+                detail.percent = Double(round(detail.percent * 10) / 10)
+                if result.count < 4 {
+                    result.append(detail)
+                    
+                    var tong: Double = 0;
+                    for re in result {
+                        tong += re.percent
+                    }
+                    
+                    if 100 - tong < 5 || result.count == 3 {
+                        let final = ReportByCateModel(nameType: "Others", percent: Double(round((100 - tong)*10)/10))
+                        result.append(final)
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return result
     }
 }

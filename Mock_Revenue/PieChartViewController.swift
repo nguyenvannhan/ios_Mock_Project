@@ -11,7 +11,9 @@ import Charts
 
 class PieChartViewController: UIViewController {
 
-    @IBOutlet weak var pieChartView: PieChartView!
+    @IBOutlet weak var pieOutComeView: PieChartView!
+    @IBOutlet weak var pieIncomeView: PieChartView!
+    @IBOutlet weak var lbName: UILabel!
     
     var commonReport: CommonReportModel?
     var idType: Int?
@@ -26,12 +28,6 @@ class PieChartViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         getData()
-        
-        let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
-        let unitsSold = [20.0, 10.0, 15.0, 15.0, 20.0, 20.0]
-        
-        setChart(dataPoints: months, values: unitsSold)
-        pieChartView.notifyDataSetChanged()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,30 +41,54 @@ class PieChartViewController: UIViewController {
                 self.detailIncomeType = detailtIncome
                 self.detailOutcomeType = detailOutcome
                 
-                print(self.detailIncomeType)
-                print(self.detailOutcomeType)
+                print("Income")
+                for detail in self.detailIncomeType {
+                    print(detail.percent)
+                }
+                print("OutCome")
+                for detail in self.detailOutcomeType {
+                    print(detail.percent)
+                }
+                
+                self.setChart(detailIncomeReport: self.detailIncomeType, detailOutcomeReport: self.detailOutcomeType)
+                self.pieIncomeView.notifyDataSetChanged()
+                self.pieOutComeView.notifyDataSetChanged()
             }
         })
     }
     
-    func setChart(dataPoints: [String], values: [Double]) {
+    func setChart(detailIncomeReport: [ReportByCateModel], detailOutcomeReport: [ReportByCateModel]) {
         
-        var dataEntries: [PieChartDataEntry] = []
+        var dataIncomeEntries: [PieChartDataEntry] = []
         
-        for i in 0..<dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: values[i], label: dataPoints[i])
-            dataEntries.append(dataEntry)
+        for i in 0..<detailIncomeReport.count {
+            let detail = detailIncomeReport[i]
+            let dataEntry = PieChartDataEntry(value: detail.percent, label: detail.nameType)
+            dataIncomeEntries.append(dataEntry)
         }
         
-        let pieChartDataSet = PieChartDataSet()
-        pieChartDataSet.values = dataEntries
-        let pieChartData = PieChartData(dataSet: pieChartDataSet)
-        pieChartView.data = pieChartData
+        let pieChartIncomeDataSet = PieChartDataSet()
+        pieChartIncomeDataSet.values = dataIncomeEntries
+        let pieChartIncomeData = PieChartData(dataSet: pieChartIncomeDataSet)
+        pieIncomeView.data = pieChartIncomeData
+        
+        var dataOutcomeEntries: [PieChartDataEntry] = []
+        
+        for i in 0..<detailOutcomeReport.count {
+            let detail = detailOutcomeReport[i]
+            let dataEntry = PieChartDataEntry(value: detail.percent, label: detail.nameType)
+            dataOutcomeEntries.append(dataEntry)
+        }
+        
+        let pieChartOutcomeDataSet = PieChartDataSet()
+        pieChartOutcomeDataSet.values = dataOutcomeEntries
+        let pieChartOutcomeData = PieChartData(dataSet: pieChartOutcomeDataSet)
+        pieOutComeView.data = pieChartOutcomeData
         
         
         var colors: [UIColor] = []
         
-        for _ in 0..<dataPoints.count {
+        for _ in 0..<detailIncomeReport.count {
             let red = Double(arc4random_uniform(256))
             let green = Double(arc4random_uniform(256))
             let blue = Double(arc4random_uniform(256))
@@ -77,7 +97,20 @@ class PieChartViewController: UIViewController {
             colors.append(color)
         }
         
-        pieChartDataSet.colors = colors
+        pieChartIncomeDataSet.colors = colors
+        
+        colors = []
+        
+        for _ in 0..<detailOutcomeReport.count {
+            let red = Double(arc4random_uniform(256))
+            let green = Double(arc4random_uniform(256))
+            let blue = Double(arc4random_uniform(256))
+            
+            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1)
+            colors.append(color)
+        }
+        
+        pieChartOutcomeDataSet.colors = colors
         
     }
 
