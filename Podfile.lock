@@ -1,5 +1,8 @@
 PODS:
   - AMPopTip (2.1.5)
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
   - Firebase/Auth (4.0.1):
     - Firebase/Core
     - FirebaseAuth (= 4.0.0)
@@ -37,16 +40,24 @@ PODS:
   - KRActivityIndicatorView (2.0.2)
   - KRProgressHUD (3.0.0):
     - KRActivityIndicatorView (~> 2.0.2)
+  - Realm (2.8.3):
+    - Realm/Headers (= 2.8.3)
+  - Realm/Headers (2.8.3)
+  - RealmSwift (2.8.3):
+    - Realm (= 2.8.3)
 
 DEPENDENCIES:
   - AMPopTip
+  - Charts
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - KRProgressHUD
+  - RealmSwift
 
 SPEC CHECKSUMS:
   AMPopTip: 32d7a89af3d9e111c535ce397b9907ecb443dcd8
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   Firebase: f984cd44a160be77ad0590f432e574562bfd4083
   FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
   FirebaseAuth: ebb6abcbabae00fc47446d690c19ce68d8484fde
@@ -57,7 +68,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 30d874b96d0d76028f61fbd122801e3f030d47db
   KRActivityIndicatorView: 2a9d5442ba8da6274db3afdf46aeaef7cf6dd8ad
   KRProgressHUD: 14f9fad06080bdb1e59569104a8eda654c83e813
+  Realm: 3601ef091c8c499a31101d8563b991e75546cdce
+  RealmSwift: 8183818515471b01a99abdd2970f8e4fd52b6f4a
 
-PODFILE CHECKSUM: 3400165ae5bed8b04623155350fab923f98e19d5
+PODFILE CHECKSUM: a9c1a93a5ea8de93088a5359d333e7246d5c9da7
 
 COCOAPODS: 1.2.1

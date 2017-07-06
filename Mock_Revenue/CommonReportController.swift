@@ -135,4 +135,16 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
             self.present(alertController, animated: true, completion: nil)
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PieChart" {
+            let vc = segue.destination as! PieChartViewController
+            let cell = sender as! CommonReportCell
+            let indexPath = self.reportCollectionView.indexPath(for: cell)
+            let commonReport = self.reportList[(indexPath?.row)!]
+            
+            vc.commonReport = commonReport
+            vc.idType = indexPath?.row
+        }
+    }
 }

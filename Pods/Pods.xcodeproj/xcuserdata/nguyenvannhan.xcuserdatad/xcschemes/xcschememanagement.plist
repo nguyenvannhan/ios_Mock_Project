@@ -8,57 +8,56 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>0</integer>
+		</dict>
+		<key>Charts.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>GoogleToolboxForMac.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>KRActivityIndicatorView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
 		</dict>
 		<key>KRProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>Pods-Mock_Revenue.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>Pods-Mock_RevenueTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>Pods-Mock_RevenueUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
+		</dict>
+		<key>Realm.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RealmSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -68,12 +67,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52C8ECFA7DE07C4A47EFC6D7768BE728</key>
+		<key>21E5AE09F62C0BE1AB6CFA9421B480DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>5A47425AAB7A1CD6E1F38A9086F96C0C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>634E2C43DEA59FA791371FBA8EFD64D3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -98,7 +102,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CA1CB0A4A3DDE836BBC2292A90006B0A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DBF6426868E6CA9AA6D5A4C0BAF80A9F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F307B842FF76B2DE6C55DB67C0885325</key>
 		<dict>
 			<key>primary</key>
 			<true/>

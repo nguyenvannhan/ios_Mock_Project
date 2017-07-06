@@ -49,6 +49,7 @@
 		94EF651B1EF2FF6200F6C2BD /* EditTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF651A1EF2FF6200F6C2BD /* EditTransactionViewController.swift */; };
 		94EF651D1EF30D5900F6C2BD /* DAOUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF651C1EF30D5900F6C2BD /* DAOUser.swift */; };
 		94EF65201EF31E6E00F6C2BD /* ChangePassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF651F1EF31E6E00F6C2BD /* ChangePassViewController.swift */; };
+		EE58F5A31F0E02F900B7BA05 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE58F5A21F0E02F900B7BA05 /* PieChartViewController.swift */; };
 		EEAB61A81F0609C40008F1BB /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB61A71F0609C40008F1BB /* ResetViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +125,7 @@
 		94EF651F1EF31E6E00F6C2BD /* ChangePassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePassViewController.swift; sourceTree = "<group>"; };
 		953597803EB50B3BD761240F /* Pods-Mock_RevenueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock_RevenueUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mock_RevenueUITests/Pods-Mock_RevenueUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9A249E6C2697F0618C741616 /* Pods-Mock_Revenue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock_Revenue.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mock_Revenue/Pods-Mock_Revenue.release.xcconfig"; sourceTree = "<group>"; };
+		EE58F5A21F0E02F900B7BA05 /* PieChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
 		EEAB61A71F0609C40008F1BB /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -329,6 +331,7 @@
 			children = (
 				94B428351EF377C00040DB51 /* CommonReportController.swift */,
 				94B428371EF37A6E0040DB51 /* CommonReportCell.swift */,
+				EE58F5A21F0E02F900B7BA05 /* PieChartViewController.swift */,
 			);
 			name = Report;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 			files = (
 				94B428361EF377C00040DB51 /* CommonReportController.swift in Sources */,
 				94132F371EFB7B48006BCAE9 /* KRActivityIn.swift in Sources */,
+				EE58F5A31F0E02F900B7BA05 /* PieChartViewController.swift in Sources */,
 				94EF650D1EF2770A00F6C2BD /* TransactionModel.swift in Sources */,
 				948CDD4F1EED32AB00319921 /* ImageCateController.swift in Sources */,
 				947FCF291EEBE12500450250 /* CommonFunction.swift in Sources */,

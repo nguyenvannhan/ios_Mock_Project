@@ -21,3 +21,13 @@ class CommonReportModel {
         self.totalIncome = totalIncome
     }
 }
+
+class ReportByCateModel {
+    var nameType: String
+    var percent: Double
+    
+    init(nameType: String, percent: Double) {
+        self.nameType = nameType
+        self.percent = percent
+    }
+}

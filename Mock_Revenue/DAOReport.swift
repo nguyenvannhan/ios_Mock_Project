@@ -153,6 +153,113 @@ class DAOReport {
         })
     }
     
+    func getReportByCate(commonReport: CommonReportModel, idType: Int, completionHandler: @escaping (_ detailIncomeReport: [ReportByCateModel], _ detailOutcomeReport: [ReportByCateModel]) -> Void) {
+        dateFomatter.dateFormat = "dd/MM/yyyy"
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        daoTransaction.getTransactionList(completionHandler: { (transactionList, error) in
+            if error == nil {
+                self.transactionList = transactionList!
+            }
+            dispatchGroup.leave()
+        })
+        
+        dispatchGroup.enter()
+        daoCate.getInComeType(completionHandler: { (incomeTypeList, error) in
+            if error == nil {
+                self.incomeTypeList = incomeTypeList!
+                dispatchGroup.leave()
+            }
+        })
+        
+        dispatchGroup.enter()
+        daoCate.getOutComeType(completionHandler: { (outcomeTypeList, error) in
+            if error == nil {
+                self.expenseTypeList = outcomeTypeList!
+                dispatchGroup.leave()
+            }
+        })
+        
+        dispatchGroup.notify(queue: DispatchQueue.global(qos: .background), execute: { () -> Void in
+            var detailIncomeReport: [ReportByCateModel] = []
+            var detailOutcomeReport: [ReportByCateModel] = []
+            
+            if idType == 0 {
+                 let date = self.dateFomatter.string(from: self.currentDate)
+                
+                for incomeType in self.incomeTypeList {
+                    var tong: Double = 0
+                    
+                    for transaction in self.transactionList {
+                        if transaction.idType == 1 && transaction.date == date && transaction.nameType == incomeType.name {
+                            tong += transaction.amount!
+                        }
+                    }
+                    
+                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                    detailIncomeReport.append(detailReport)
+                }
+                
+                for outcomeType in self.expenseTypeList {
+                    var tong: Double = 0
+                    
+                    for transaction in self.transactionList {
+                        if transaction.idType == 0 && transaction.date == date && transaction.nameType == outcomeType.name {
+                            tong += transaction.amount!
+                        }
+                    }
+                    
+                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: outcomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                    detailOutcomeReport.append(detailReport)
+                }
+            } else {
+                var fromDate: String = String()
+                var
+                toDate: String = String()
+                
+                if idType == 1 {
+                    fromDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 0))
+                    toDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 1))
+                } else {
+                    fromDate = self.getFirstDateOfMonth()
+                    toDate = self.getLastDateOfMont()
+                }
+                
+                for incomeType in self.incomeTypeList {
+                    var tong: Double = 0
+                    
+                    for transaction in self.transactionList {
+                        if transaction.idType! == 1 && transaction.date! >= fromDate && transaction.date! <= toDate && transaction.nameType! == incomeType.name! {
+                            tong += transaction.amount!
+                        }
+                    }
+                    
+                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                    detailIncomeReport.append(detailReport)
+                }
+                
+                for outcomeType in self.expenseTypeList {
+                    var tong: Double = 0
+                    
+                    for transaction in self.transactionList {
+                        if transaction.idType! == 0 && transaction.date! >= fromDate && transaction.date! <= toDate && transaction.nameType! == outcomeType.name!
+                         {
+                            tong += transaction.amount!
+                        }
+                    }
+                    
+                    let detailReport: ReportByCateModel = ReportByCateModel(nameType:
+                        outcomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                    detailOutcomeReport.append(detailReport)
+                }
+            }
+            
+            completionHandler(detailIncomeReport, detailOutcomeReport)
+        })
+    }
+    
     func getDayOfCurrentWeek(weekDay: Int) -> Date {
         let cal = Calendar.current
         let date = Date()

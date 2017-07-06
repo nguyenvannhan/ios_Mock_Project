@@ -11,7 +11,17 @@ target 'Mock_Revenue' do
   pod 'Firebase/Database'
   pod 'AMPopTip'
   pod 'KRProgressHUD'
-
+  pod 'Charts'
+  pod 'RealmSwift'
+  
+  post_install do |installer|
+      installer.pods_project.targets.each do |target|
+          target.build_configurations.each do |config|
+              config.build_settings['SWIFT_VERSION'] = '3.0'
+          end
+      end
+  end
+  
   target 'Mock_RevenueTests' do
     inherit! :search_paths
     # Pods for testing
