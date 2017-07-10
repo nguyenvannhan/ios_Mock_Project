@@ -126,7 +126,6 @@ class DAOReport {
             } else {
                 completionHandler(nil, error)
             }
-            
         })
     }
     

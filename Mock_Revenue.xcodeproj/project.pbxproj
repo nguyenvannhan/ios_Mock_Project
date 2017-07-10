@@ -50,6 +50,9 @@
 		94EF651D1EF30D5900F6C2BD /* DAOUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF651C1EF30D5900F6C2BD /* DAOUser.swift */; };
 		94EF65201EF31E6E00F6C2BD /* ChangePassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94EF651F1EF31E6E00F6C2BD /* ChangePassViewController.swift */; };
 		EE58F5A31F0E02F900B7BA05 /* PieChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE58F5A21F0E02F900B7BA05 /* PieChartViewController.swift */; };
+		EEA2E1CD1F10B60400039A88 /* moneyKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEA2E1CC1F10B60400039A88 /* moneyKeyboard.xib */; };
+		EEA2E1D11F10D08A00039A88 /* MyProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA2E1D01F10D08A00039A88 /* MyProtocols.swift */; };
+		EEA2E1D31F10D0C900039A88 /* MoneyKeboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA2E1D21F10D0C900039A88 /* MoneyKeboard.swift */; };
 		EEAB61A81F0609C40008F1BB /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB61A71F0609C40008F1BB /* ResetViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -126,6 +129,9 @@
 		953597803EB50B3BD761240F /* Pods-Mock_RevenueUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock_RevenueUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mock_RevenueUITests/Pods-Mock_RevenueUITests.release.xcconfig"; sourceTree = "<group>"; };
 		9A249E6C2697F0618C741616 /* Pods-Mock_Revenue.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mock_Revenue.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mock_Revenue/Pods-Mock_Revenue.release.xcconfig"; sourceTree = "<group>"; };
 		EE58F5A21F0E02F900B7BA05 /* PieChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PieChartViewController.swift; sourceTree = "<group>"; };
+		EEA2E1CC1F10B60400039A88 /* moneyKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = moneyKeyboard.xib; sourceTree = "<group>"; };
+		EEA2E1D01F10D08A00039A88 /* MyProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProtocols.swift; sourceTree = "<group>"; };
+		EEA2E1D21F10D0C900039A88 /* MoneyKeboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoneyKeboard.swift; sourceTree = "<group>"; };
 		EEAB61A71F0609C40008F1BB /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +222,8 @@
 				7464456F1EEBD664002EA7F3 /* GoogleService-Info.plist */,
 				7464454D1EEBD5EC002EA7F3 /* Info.plist */,
 				947FCF1D1EEBDA1A00450250 /* images.plist */,
+				EEA2E1CC1F10B60400039A88 /* moneyKeyboard.xib */,
+				EEA2E1D21F10D0C900039A88 /* MoneyKeboard.swift */,
 			);
 			path = Mock_Revenue;
 			sourceTree = "<group>";
@@ -322,6 +330,7 @@
 				94EF651C1EF30D5900F6C2BD /* DAOUser.swift */,
 				94B428321EF373250040DB51 /* DAOReport.swift */,
 				94A98EE01EFBFE8000BE83D3 /* DAOInternet.swift */,
+				EEA2E1D01F10D08A00039A88 /* MyProtocols.swift */,
 			);
 			name = DAO;
 			sourceTree = "<group>";
@@ -464,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7464454C1EEBD5EC002EA7F3 /* LaunchScreen.storyboard in Resources */,
+				EEA2E1CD1F10B60400039A88 /* moneyKeyboard.xib in Resources */,
 				746445701EEBD664002EA7F3 /* GoogleService-Info.plist in Resources */,
 				746445491EEBD5EC002EA7F3 /* Assets.xcassets in Resources */,
 				746445471EEBD5EC002EA7F3 /* Main.storyboard in Resources */,
@@ -640,6 +650,7 @@
 				94AA88D31EEC2829000B4C13 /* MenuViewCell.swift in Sources */,
 				EEAB61A81F0609C40008F1BB /* ResetViewController.swift in Sources */,
 				947FCF271EEBE11500450250 /* ValidationTextField.swift in Sources */,
+				EEA2E1D11F10D08A00039A88 /* MyProtocols.swift in Sources */,
 				947FCF321EEBE3F900450250 /* RegisterViewController.swift in Sources */,
 				94A98EE11EFBFE8000BE83D3 /* DAOInternet.swift in Sources */,
 				94AA88DB1EEC4895000B4C13 /* DAORevenueType.swift in Sources */,
@@ -650,6 +661,7 @@
 				948CDD551EED430300319921 /* User.swift in Sources */,
 				94EF65111EF2D20300F6C2BD /* MainViewCell.swift in Sources */,
 				94AA88D11EEC2810000B4C13 /* MenuViewController.swift in Sources */,
+				EEA2E1D31F10D0C900039A88 /* MoneyKeboard.swift in Sources */,
 				746445421EEBD5EC002EA7F3 /* AppDelegate.swift in Sources */,
 				94B428331EF373250040DB51 /* DAOReport.swift in Sources */,
 				94EF651D1EF30D5900F6C2BD /* DAOUser.swift in Sources */,

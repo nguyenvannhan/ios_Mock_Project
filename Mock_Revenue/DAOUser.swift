@@ -25,7 +25,7 @@ class DAOUser {
                 UserDefaults.standard.synchronize()
                 
                 self.ref = Database.database().reference()
-                self.handle = self.ref?.child("nguoi_dung").child(uid!).observe(.value, with: { (snapshot) in
+                self.ref?.child("nguoi_dung").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
                     if snapshot.exists() {
                         if let postDict = snapshot.value as? [String: AnyObject] {
                             User.setInfo(json: postDict)

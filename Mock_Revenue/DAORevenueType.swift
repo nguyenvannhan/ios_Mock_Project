@@ -22,7 +22,7 @@ class DAORevenueType {
         ref = Database.database().reference()
         
         
-        handle = ref?.child("nguoi_dung").child(uid!).child("loai_chi").observe(.value, with: { (snapshot) in
+         ref?.child("nguoi_dung").child(uid!).child("loai_chi").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -47,7 +47,7 @@ class DAORevenueType {
         ref = Database.database().reference()
         
         
-        handle = ref?.child("loai_chi").observe(.value, with: { (snapshot) in
+        ref?.child("loai_chi").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -73,7 +73,7 @@ class DAORevenueType {
         
         ref = Database.database().reference()
         
-        handle = ref?.child("nguoi_dung").child(uid!).child("loai_thu").observe(.value, with: { (snapshot) in
+        ref?.child("nguoi_dung").child(uid!).child("loai_thu").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -98,7 +98,7 @@ class DAORevenueType {
         
         ref = Database.database().reference()
         
-        handle = ref?.child("loai_thu").observe(.value, with: { (snapshot) in
+        ref?.child("loai_thu").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
@@ -109,6 +109,7 @@ class DAORevenueType {
                         }
                     }
                 }
+                
                 completionHandler(revenueTypeListc, nil)
             } else {
                 let error = "Can not get data"

@@ -139,7 +139,6 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
             }
             
             times += 1
-            
             if (times == 50) {
                 break
             }

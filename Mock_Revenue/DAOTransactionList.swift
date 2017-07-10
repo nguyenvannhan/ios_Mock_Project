@@ -19,7 +19,7 @@ class DAOTransactionList {
         let uid = User.uid
         ref = Database.database().reference()
         
-        handle = ref?.child("nguoi_dung").child(uid!).child("giao_dich").queryOrdered(byChild: "ngay").observe(.value, with: { (snapshot) in
+        ref?.child("nguoi_dung").child(uid!).child("giao_dich").queryOrdered(byChild: "ngay").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
