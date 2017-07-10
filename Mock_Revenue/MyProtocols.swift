@@ -13,3 +13,11 @@ protocol KeyboardDelegate: class {
     
     func updateKeyboard(tag: Int)
 }
+
+protocol SetValuePreviousVC {
+    func returnData(idType: Int?, revenueType: RevenueType?)
+}
+
+protocol SendImageBack {
+    func setValueImage(image: String)
+}

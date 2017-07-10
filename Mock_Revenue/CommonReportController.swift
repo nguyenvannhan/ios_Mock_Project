@@ -8,43 +8,30 @@
 
 import UIKit
 
-class CommonReportController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class CommonReportController: UIViewController {
     
     
     @IBOutlet weak var reportCollectionView: UICollectionView!
     
+    var commonFunction: CommonFunction = CommonFunction()
     var reportList: [CommonReportModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let daoReport: DAOReport = DAOReport()
-        
         self.reportCollectionView.delegate = self
         self.reportCollectionView.dataSource = self
         
         checkInternet()
         configureNavigation()
         
-        KRActivityIn.startActivityIndicator(uiView: self.view)
-        
-        daoReport.getDataList(completionHandler: { (reportList, error) in
-            if error == nil {
-                self.reportList = reportList!
-                DispatchQueue.main.async {
-                    self.reportCollectionView.reloadData()
-                    KRActivityIn.stopActivityIndicator()
-                }
-            } else {
-                KRActivityIn.stopActivityIndicator()
-            }
-        })
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let daoReport: DAOReport = DAOReport()
+        
         
         self.reportCollectionView.delegate = self
         self.reportCollectionView.dataSource = self
@@ -52,14 +39,7 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         checkInternet()
         configureNavigation()
         
-        daoReport.getDataList(completionHandler: { (reportList, error) in
-            if error == nil {
-                self.reportList = reportList!
-                DispatchQueue.main.async {
-                    self.reportCollectionView.reloadData()
-                }
-            }
-        })
+        getData()
     }
     
     func configureNavigation() {
@@ -72,24 +52,6 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return reportList.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reportModel = reportList[indexPath.row]
-        
-        let cell = self.reportCollectionView.dequeueReusableCell(withReuseIdentifier: "CommonReportCell", for: indexPath) as! CommonReportCell
-        
-        cell.configure(model: reportModel)
-        
-        return cell
-    }
-    
     @IBAction func btnMenuClick(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         vc.indexTemp = 2
@@ -97,31 +59,7 @@ class CommonReportController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func checkInternet() {
-        var flag: Bool = false
-        
-        var times = 0
-        
-        while !flag {
-            
-            let status = DAOInternet().connectionStatus()
-            switch status {
-            case .unknown, .offline:
-                flag = false
-                break
-            case .online(.wwan):
-                flag = true
-                break
-            case .online(.wiFi):
-                flag = true
-                break
-            }
-            
-            times += 1
-            
-            if (times == 50) {
-                break
-            }
-        }
+        let flag: Bool = commonFunction.checkInternet()
         
         if !flag {
             let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)

@@ -58,4 +58,33 @@ class CommonFunction {
         }
         return imageList
     }
+    
+    func checkInternet() -> Bool{
+        var flag: Bool = false
+        
+        var times = 0
+        
+        while !flag {
+            
+            let status = DAOInternet().connectionStatus()
+            switch status {
+            case .unknown, .offline:
+                flag = false
+                break
+            case .online(.wwan):
+                flag = true
+                break
+            case .online(.wiFi):
+                flag = true
+                break
+            }
+            
+            times += 1
+            
+            if (times == 50) {
+                break
+            }
+        }
+        return flag
+    }
 }

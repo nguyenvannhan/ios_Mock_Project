@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol SetValuePreviousVC {
-    func returnData(idType: Int?, revenueType: RevenueType?)
-}
-
 class ChooseCateController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var sgmCateType: UISegmentedControl!
