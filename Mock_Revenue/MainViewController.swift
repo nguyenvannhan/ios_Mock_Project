@@ -8,16 +8,22 @@
 
 import UIKit
 
-class MainViewController: UITableViewController, UISearchResultsUpdating {
+class MainViewController: UIViewController, UISearchResultsUpdating {
+    
+    @IBOutlet var mainTableView: UITableView!
     
     var transactionList: [TransactionModel] = []
     var filteredList: [TransactionModel] = []
     let searchController = UISearchController(searchResultsController: nil)
     
+    let commonFunction: CommonFunction = CommonFunction()
     let daoTransactionList: DAOTransactionList = DAOTransactionList()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.mainTableView.delegate = self
+        self.mainTableView.dataSource = self
         
         checkInternet()
         configureNavigation()
@@ -26,7 +32,7 @@ class MainViewController: UITableViewController, UISearchResultsUpdating {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.sizeToFit()
-        self.tableView.tableHeaderView = searchController.searchBar
+        self.mainTableView.tableHeaderView = searchController.searchBar
         definesPresentationContext = true
         
         getData()
@@ -58,76 +64,9 @@ class MainViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive && searchController.searchBar.text != "" {
-            return filteredList.count
-        } else {
-            return transactionList.count
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MainViewCell", for: indexPath) as! MainViewCell
-        
-        let transactionModel: TransactionModel?
-        
-        if searchController.isActive && searchController.searchBar.text != "" {
-            transactionModel = filteredList[indexPath.row]
-        } else {
-            transactionModel = transactionList[indexPath.row]
-        }
-        
-        // Configure the cell...
-        cell.configureCell(transactionM: transactionModel!)
-
-        return cell
-    }
-    
-    func getData() {
-        KRActivityIn.startActivityIndicator(uiView: self.view)
-        daoTransactionList.getTransactionList(completionHandler: { (transactionList, error) in
-            if error == nil {
-                self.transactionList = []
-                self.transactionList = transactionList!
-                self.transactionList.reverse()
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    KRActivityIn.stopActivityIndicator()
-                }
-            } else {
-                let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                
-                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                alertController.addAction(defaultAction)
-                
-                self.present(alertController, animated: true, completion: nil)
-                KRActivityIn.stopActivityIndicator()
-            }
-        })
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let transaction: TransactionModel?
-            
-            if searchController.isActive && searchController.searchBar.text != "" {
-                transaction = self.filteredList[(indexPath.row)]
-            } else {
-                transaction = self.transactionList[(indexPath.row)]
-            }
-            
-            deleteTransaction(transaction: transaction!)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "EditTransaction" {
-            let indexPath = self.tableView.indexPathForSelectedRow
+            let indexPath = self.mainTableView.indexPathForSelectedRow
             
             let transactionModel: TransactionModel?
             
@@ -145,7 +84,7 @@ class MainViewController: UITableViewController, UISearchResultsUpdating {
     func actionLongPress(longPressRecognizer: UILongPressGestureRecognizer) {
         if longPressRecognizer.state == .began {
             let touchPoint = longPressRecognizer.location(in: self.view)
-            if let indexPath = self.tableView.indexPathForRow(at: touchPoint) {
+            if let indexPath = self.mainTableView.indexPathForRow(at: touchPoint) {
                 let alertController = UIAlertController(title: "Delete Transaction", message: "Do you want to delete selected transaction?", preferredStyle: .alert)
                 
                 let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction) -> Void in
@@ -209,31 +148,7 @@ class MainViewController: UITableViewController, UISearchResultsUpdating {
     }
     
     func checkInternet() {
-        var flag: Bool = false
-        
-        var times = 0
-        
-        while !flag {
-            
-            let status = DAOInternet().connectionStatus()
-            switch status {
-            case .unknown, .offline:
-                flag = false
-                break
-            case .online(.wwan):
-                flag = true
-                break
-            case .online(.wiFi):
-                flag = true
-                break
-            }
-            
-            times += 1
-            
-            if (times == 50) {
-                break
-            }
-        }
+        let flag: Bool = commonFunction.checkInternet()
         
         if !flag {
             let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)
@@ -263,6 +178,6 @@ class MainViewController: UITableViewController, UISearchResultsUpdating {
             }
         }
         
-        tableView.reloadData()
+        self.mainTableView.reloadData()
     }
 }

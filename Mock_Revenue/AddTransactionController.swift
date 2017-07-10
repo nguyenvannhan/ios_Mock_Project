@@ -17,6 +17,7 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
     @IBOutlet weak var txtAmount: UITextField!
     @IBOutlet weak var txtNote: UITextView!
     
+    let commonFunction: CommonFunction = CommonFunction()
     let daoTransaction: DAOTransactionList = DAOTransactionList()
 
     var revenueTypeTemp: RevenueType = RevenueType(name: "Please choose Revenue Type!", image: "cate_default.png")
@@ -119,30 +120,7 @@ class AddTransactionController: UIViewController, SetValuePreviousVC {
     }
     
     func checkInternet() {
-        var flag: Bool = false
-        
-        var times = 0
-        
-        while !flag {
-            
-            let status = DAOInternet().connectionStatus()
-            switch status {
-            case .unknown, .offline:
-                flag = false
-                break
-            case .online(.wwan):
-                flag = true
-                break
-            case .online(.wiFi):
-                flag = true
-                break
-            }
-            
-            times += 1
-            if (times == 50) {
-                break
-            }
-        }
+        let flag: Bool = commonFunction.checkInternet()
         
         if !flag {
             let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)

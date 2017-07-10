@@ -15,7 +15,7 @@ class AddNewCateController: UIViewController, SendImageBack {
     @IBOutlet weak var sgmRevenueType: UISegmentedControl!
     
     var imageTemp: String =  "cate_default.png"
-    
+    var commonFunction: CommonFunction = CommonFunction()
     let daoRevenueType: DAORevenueType = DAORevenueType()
     
     override func viewDidLoad() {
@@ -98,31 +98,7 @@ class AddNewCateController: UIViewController, SendImageBack {
     }
     
     func checkInternet() {
-        var flag: Bool = false
-        
-        var times = 0
-        
-        while !flag {
-            
-            let status = DAOInternet().connectionStatus()
-            switch status {
-            case .unknown, .offline:
-                flag = false
-                break
-            case .online(.wwan):
-                flag = true
-                break
-            case .online(.wiFi):
-                flag = true
-                break
-            }
-            
-            times += 1
-            
-            if (times == 50) {
-                break
-            }
-        }
+        let flag: Bool = commonFunction.checkInternet()
         
         if !flag {
             let alertController = UIAlertController(title: "No Internet Available", message: "Please check your connection and press Reload!", preferredStyle: .alert)

@@ -56,6 +56,9 @@
 		EEAAAA681F13F7EB00B61669 /* CommonReportDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA671F13F7EB00B61669 /* CommonReportDataSource.swift */; };
 		EEAAAA6B1F13FA5B00B61669 /* CateViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA6A1F13FA5B00B61669 /* CateViewDataSource.swift */; };
 		EEAAAA6D1F13FB3600B61669 /* ImageCateDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA6C1F13FB3600B61669 /* ImageCateDataSource.swift */; };
+		EEAAAA701F13FE5900B61669 /* MenuViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA6F1F13FE5900B61669 /* MenuViewDataSource.swift */; };
+		EEAAAA731F14002200B61669 /* MainViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA721F14002200B61669 /* MainViewDataSource.swift */; };
+		EEAAAA751F1400ED00B61669 /* ChooseCateDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAAAA741F1400ED00B61669 /* ChooseCateDataSource.swift */; };
 		EEAB61A81F0609C40008F1BB /* ResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEAB61A71F0609C40008F1BB /* ResetViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +141,9 @@
 		EEAAAA671F13F7EB00B61669 /* CommonReportDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonReportDataSource.swift; sourceTree = "<group>"; };
 		EEAAAA6A1F13FA5B00B61669 /* CateViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateViewDataSource.swift; sourceTree = "<group>"; };
 		EEAAAA6C1F13FB3600B61669 /* ImageCateDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCateDataSource.swift; sourceTree = "<group>"; };
+		EEAAAA6F1F13FE5900B61669 /* MenuViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewDataSource.swift; sourceTree = "<group>"; };
+		EEAAAA721F14002200B61669 /* MainViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewDataSource.swift; sourceTree = "<group>"; };
+		EEAAAA741F1400ED00B61669 /* ChooseCateDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseCateDataSource.swift; sourceTree = "<group>"; };
 		EEAB61A71F0609C40008F1BB /* ResetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResetViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -261,7 +267,6 @@
 				94AA88D41EEC3015000B4C13 /* Category */,
 				94AA88CF1EEC27F7000B4C13 /* Menu */,
 				947FCF331EEBE5DC00450250 /* Main */,
-				947FCF2E1EEBE3B900450250 /* Category */,
 			);
 			name = View_Controller;
 			sourceTree = "<group>";
@@ -286,13 +291,6 @@
 				94132F361EFB7B48006BCAE9 /* KRActivityIn.swift */,
 			);
 			name = CommonGroup;
-			sourceTree = "<group>";
-		};
-		947FCF2E1EEBE3B900450250 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Category;
 			sourceTree = "<group>";
 		};
 		947FCF331EEBE5DC00450250 /* Main */ = {
@@ -366,6 +364,8 @@
 		EEAAAA651F13F78B00B61669 /* DataSource */ = {
 			isa = PBXGroup;
 			children = (
+				EEAAAA711F14000E00B61669 /* Main */,
+				EEAAAA6E1F13FE4100B61669 /* Menu */,
 				EEAAAA691F13FA3300B61669 /* Category */,
 				EEAAAA661F13F7D400B61669 /* Report */,
 			);
@@ -387,6 +387,23 @@
 				EEAAAA6C1F13FB3600B61669 /* ImageCateDataSource.swift */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		EEAAAA6E1F13FE4100B61669 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				EEAAAA6F1F13FE5900B61669 /* MenuViewDataSource.swift */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		EEAAAA711F14000E00B61669 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EEAAAA721F14002200B61669 /* MainViewDataSource.swift */,
+				EEAAAA741F1400ED00B61669 /* ChooseCateDataSource.swift */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -679,6 +696,7 @@
 				94EF650D1EF2770A00F6C2BD /* TransactionModel.swift in Sources */,
 				948CDD4F1EED32AB00319921 /* ImageCateController.swift in Sources */,
 				947FCF291EEBE12500450250 /* CommonFunction.swift in Sources */,
+				EEAAAA751F1400ED00B61669 /* ChooseCateDataSource.swift in Sources */,
 				94B4283A1EF37BE90040DB51 /* CommonReportModel.swift in Sources */,
 				EEAAAA6D1F13FB3600B61669 /* ImageCateDataSource.swift in Sources */,
 				EEAAAA681F13F7EB00B61669 /* CommonReportDataSource.swift in Sources */,
@@ -687,6 +705,7 @@
 				EEAB61A81F0609C40008F1BB /* ResetViewController.swift in Sources */,
 				947FCF271EEBE11500450250 /* ValidationTextField.swift in Sources */,
 				EEA2E1D11F10D08A00039A88 /* MyProtocols.swift in Sources */,
+				EEAAAA701F13FE5900B61669 /* MenuViewDataSource.swift in Sources */,
 				947FCF321EEBE3F900450250 /* RegisterViewController.swift in Sources */,
 				94A98EE11EFBFE8000BE83D3 /* DAOInternet.swift in Sources */,
 				94AA88DB1EEC4895000B4C13 /* DAORevenueType.swift in Sources */,
@@ -701,6 +720,7 @@
 				746445421EEBD5EC002EA7F3 /* AppDelegate.swift in Sources */,
 				94B428331EF373250040DB51 /* DAOReport.swift in Sources */,
 				94EF651D1EF30D5900F6C2BD /* DAOUser.swift in Sources */,
+				EEAAAA731F14002200B61669 /* MainViewDataSource.swift in Sources */,
 				94B428381EF37A6E0040DB51 /* CommonReportCell.swift in Sources */,
 				948CDD531EED38EE00319921 /* AddNewCateController.swift in Sources */,
 				94EF65131EF2D70800F6C2BD /* DAOTransactionList.swift in Sources */,

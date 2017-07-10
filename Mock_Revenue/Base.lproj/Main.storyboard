@@ -1021,6 +1021,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="mainTableView" destination="QqE-pz-UF3" id="8j7-9h-Mbq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="su3-IW-hyX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1814,7 +1817,7 @@
                                         <rect key="frame" x="12.5" y="0.0" width="350" height="138"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="351" height="138"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="350" height="138"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RSp-0g-NSU">
