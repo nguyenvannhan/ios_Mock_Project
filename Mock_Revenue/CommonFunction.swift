@@ -87,4 +87,91 @@ class CommonFunction {
         }
         return flag
     }
+    
+    func addDotText(text: String) -> String {
+        var flag: Bool = false
+        var textCheck = text
+        
+        if textCheck.characters.count == 2 && textCheck.characters.first == "0" {
+            textCheck.characters.removeFirst()
+            return textCheck
+        }
+        if text.characters.first == "-" {
+            flag = true
+            textCheck.characters.removeFirst()
+        }
+        
+        var tempText = ""
+        let stringSeperate = textCheck.components(separatedBy: ".")
+        
+        if stringSeperate.count > 1 {
+            for i in 0..<stringSeperate.count {
+                tempText += stringSeperate[i]
+            }
+        } else {
+            tempText = textCheck
+        }
+        return flag ? "-" + addDot(text: tempText) : addDot(text:tempText)
+    }
+    
+    func addDot(text: String) -> String {
+        
+        var length = text.characters.count
+        
+        if length < 4 {
+            return text
+        } else {
+            let surplus = length % 3
+            let numberDot = (surplus == 0) ? ((length / 3) - 1) : (length / 3)
+            
+            if numberDot > 0 {
+                var tempText = text
+                var result = ""
+                
+                if surplus == 0 {
+                    while length > 0 {
+                        let endIndex = tempText.index(tempText.startIndex, offsetBy: 3)
+                        let range = tempText.startIndex..<endIndex
+                        result += tempText.substring(with: range)
+                        if length > 3 {
+                            result += "."
+                        }
+                        tempText.characters.removeFirst(3)
+                        length = tempText.characters.count
+                    }
+                } else {
+                    let end = tempText.index(tempText.startIndex, offsetBy: surplus)
+                    let rangeTemp = tempText.startIndex..<end
+                    result += tempText.substring(with: rangeTemp)
+                    result += "."
+                    tempText.characters.removeFirst(surplus)
+                    length = tempText.characters.count
+                    
+                    while length > 0 {
+                        let endIndex = tempText.index(tempText.startIndex, offsetBy: 3)
+                        let range = tempText.startIndex..<endIndex
+                        result += tempText.substring(with: range)
+                        if length > 3 {
+                            result += "."
+                        }
+                        tempText.characters.removeFirst(3)
+                        length = tempText.characters.count
+                    }
+                }
+                
+                return result
+            }
+            return text
+        }
+    }
+    
+    func removeDotText(text: String) -> String {
+        var tempText = ""
+        let stringSeperate = text.components(separatedBy: ".")
+        
+        for i in 0..<stringSeperate.count {
+            tempText += stringSeperate[i]
+        }
+        return tempText
+    }
 }

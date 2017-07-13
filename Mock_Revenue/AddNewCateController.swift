@@ -20,6 +20,8 @@ class AddNewCateController: UIViewController, SendImageBack {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textFieldDelegate()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,6 +34,12 @@ class AddNewCateController: UIViewController, SendImageBack {
         if imgRevenueType.image != UIImage(named:imageTemp) {
             imgRevenueType.image = UIImage(named: imageTemp)
         }
+        
+        textFieldDelegate()
+    }
+    
+    func textFieldDelegate() {
+        self.txtNameRevenueType.delegate = self
     }
     
     func setValueImage(image: String) {

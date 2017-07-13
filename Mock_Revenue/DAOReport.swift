@@ -29,6 +29,7 @@ class DAOReport {
         
         daoTransaction.getTransactionList(completionHandler: { (transactionList, error) in
             if error == nil {
+                self.transactionList = []
                 self.transactionList = transactionList!
                 for transaction in self.transactionList {
                     if transaction.date == self.dateFomatter.string(from: self.currentDate) {
@@ -197,8 +198,10 @@ class DAOReport {
                         }
                     }
                     
-                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
-                    detailIncomeReport.append(detailReport)
+                    if tong > 0 {
+                        let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                        detailIncomeReport.append(detailReport)
+                    }
                 }
                 
                 for outcomeType in self.expenseTypeList {
@@ -210,8 +213,10 @@ class DAOReport {
                         }
                     }
                     
-                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: outcomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
-                    detailOutcomeReport.append(detailReport)
+                    if tong > 0 {
+                        let detailReport: ReportByCateModel = ReportByCateModel(nameType: outcomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                        detailOutcomeReport.append(detailReport)
+                    }
                 }
             } else {
                 var fromDate: String = String()
@@ -219,8 +224,8 @@ class DAOReport {
                 toDate: String = String()
                 
                 if idType == 1 {
-                    fromDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 0))
-                    toDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 1))
+                    fromDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 1))
+                    toDate = self.dateFomatter.string(from: self.getDayOfCurrentWeek(weekDay: 7))
                 } else {
                     fromDate = self.getFirstDateOfMonth()
                     toDate = self.getLastDateOfMont()
@@ -235,8 +240,10 @@ class DAOReport {
                         }
                     }
                     
-                    let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
-                    detailIncomeReport.append(detailReport)
+                    if tong > 0 {
+                        let detailReport: ReportByCateModel = ReportByCateModel(nameType: incomeType.name!, percent: (tong / Double(commonReport.totalIncome!)!) * 100)
+                        detailIncomeReport.append(detailReport)
+                    }
                 }
                 
                 for outcomeType in self.expenseTypeList {
@@ -249,23 +256,17 @@ class DAOReport {
                         }
                     }
                     
-                    let detailReport: ReportByCateModel = ReportByCateModel(nameType:
-                        outcomeType.name!, percent: (tong / Double(commonReport.totalExpense!)!) * 100)
-                    detailOutcomeReport.append(detailReport)
+                    if tong > 0 {
+                        let detailReport: ReportByCateModel = ReportByCateModel(nameType:
+                            outcomeType.name!, percent: (tong / Double(commonReport.totalExpense!)!) * 100)
+                        detailOutcomeReport.append(detailReport)
+                    }
                 }
-            }
-            
-            print("Income")
-            for detail in detailIncomeReport {
-                print(detail.percent)
-            }
-            print("OutCome")
-            for detail in detailOutcomeReport {
-                print(detail.percent)
             }
             
             detailIncomeReport = self.modifyDetailData(detailData: detailIncomeReport)
             detailOutcomeReport = self.modifyDetailData(detailData: detailOutcomeReport)
+            
             
             completionHandler(detailIncomeReport, detailOutcomeReport)
         })
@@ -319,6 +320,20 @@ class DAOReport {
                         result.append(final)
                         break;
                     }
+                }
+            }
+        }
+        
+        for i in 0..<result.count {
+            if i == result.count {
+                break
+            }
+            
+            while result[i].percent < Double(1) {
+                result[i - 1].percent += result[i].percent
+                result.remove(at: i)
+                if i == result.count {
+                    break
                 }
             }
         }

@@ -23,10 +23,11 @@ class CommonReportCell: UICollectionViewCell {
     }
     
     func configure(model: CommonReportModel) {
+        let commonFunction: CommonFunction = CommonFunction()
         self.lbName.text = model.name
-        self.lbTotalIncome.text = model.totalIncome! + " VNĐ"
-        self.lbTotalExpense.text = model.totalExpense! + " VNĐ"
-        self.lbTotalBanlance.text = model.totalBalance! + " VNĐ"
+        self.lbTotalIncome.text = commonFunction.addDotText(text: model.totalIncome!) + " VNĐ"
+        self.lbTotalExpense.text = commonFunction.addDotText(text: model.totalExpense!) + " VNĐ"
+        self.lbTotalBanlance.text = commonFunction.addDotText(text: model.totalBalance!) + " VNĐ"
         
     }
 }

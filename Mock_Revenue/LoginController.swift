@@ -24,14 +24,24 @@ class LoginController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         
         checkSaveLogin()
+        
+        textFieldDelegate()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func textFieldDelegate() {
+        self.txtEmail.delegate = self
+        self.txtPassword.delegate = self
+    }
+    
     //Sự kiện click button Đăng nhập
     @IBAction func btnSignInClick(_ sender: UIButton) {
+        //Load waiting icon
+        KRActivityIn.startActivityIndicator(uiView: self.view)
+        
         //Kiểm tra các textfield
         if  txtEmail.text == "" || txtPassword.text == "" {
             let alertController = UIAlertController(title: "Error", message: "Please complete information", preferredStyle: .alert)
@@ -40,8 +50,27 @@ class LoginController: UIViewController {
             alertController.addAction(defaultAction)
             
             present(alertController, animated: true, completion: nil)
+            
+            KRActivityIn.stopActivityIndicator()
+        } else if !commonFunction.isValidEmail(testStr: txtEmail.text!) { // Kiemer tra định dạng email
+            let alertController = UIAlertController(title: "Error", message: "Email is not true!", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+            KRActivityIn.stopActivityIndicator()
+        } else if (txtPassword.text?.characters.count)! < 6 { // Kiểm tra số Ký tự mật khẩu
+            let alertController = UIAlertController(title: "Error", message: "Password must have at least 6 characters!", preferredStyle: .alert)
+            
+            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+            KRActivityIn.stopActivityIndicator()
         } else {
-            KRActivityIn.startActivityIndicator(uiView: self.view)
             
             //Đăng nhập thông qua API của Firebase với email và password dã đăng ký
             daoUser.login(email: txtEmail.text!, password: txtPassword.text!, completionHandler: { (error) in
@@ -99,6 +128,7 @@ class LoginController: UIViewController {
         }
     }
     
+    //Kiểm tra thông tin Auto Login
     func checkSaveLogin() {
         if let username = UserDefaults.standard.string(forKey: "email"), let password = UserDefaults.standard.string(forKey: "password") {
             if username != "" && password != "" {

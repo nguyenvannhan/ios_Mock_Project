@@ -20,7 +20,7 @@
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -240,6 +240,9 @@
                                 <exclude reference="ryi-ny-UEL"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <action selector="userTappedBackground:" destination="BYZ-38-t0r" eventType="touchDown" id="xO7-qh-Wb6"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="96N-34-Vjr"/>
                     <connections>
@@ -259,7 +262,7 @@
                         <viewControllerLayoutGuide type="top" id="jr6-Im-oLu"/>
                         <viewControllerLayoutGuide type="bottom" id="BKd-S8-qSe"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="gRs-5G-L9h">
+                    <view key="view" contentMode="scaleToFill" id="gRs-5G-L9h" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -371,6 +374,9 @@
                             <constraint firstItem="L7a-jq-AFC" firstAttribute="width" secondItem="0Yi-ca-f7h" secondAttribute="width" id="vE4-fQ-1C2"/>
                             <constraint firstItem="0Yi-ca-f7h" firstAttribute="leading" secondItem="gRs-5G-L9h" secondAttribute="leading" priority="900" constant="25" id="vKW-Zq-nsK"/>
                         </constraints>
+                        <connections>
+                            <action selector="userTappedBackground:" destination="NUj-p2-ZJh" eventType="touchDown" id="xd6-Q6-dpx"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="txtReset" destination="0J7-mc-Dau" id="4A7-Ed-aEF"/>
@@ -479,6 +485,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="amountValueChange:" destination="lQg-SI-DQi" eventType="editingChanged" id="6g4-fW-FHO"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WFo-d1-Nmh" customClass="ValidationTextField" customModule="Mock_Revenue" customModuleProvider="target">
                                         <rect key="frame" x="26" y="309" width="323" height="30"/>
@@ -553,7 +562,7 @@
                             <constraint firstItem="RiU-Qk-AFU" firstAttribute="top" secondItem="5tQ-1H-Mvf" secondAttribute="bottom" id="BSR-Ke-ADP"/>
                             <constraint firstItem="BZZ-bq-lgt" firstAttribute="leading" secondItem="eOD-Lr-uqi" secondAttribute="leadingMargin" priority="900" constant="10" id="JDL-RS-fyM"/>
                             <constraint firstItem="UEy-lI-xxR" firstAttribute="leading" secondItem="eOD-Lr-uqi" secondAttribute="leadingMargin" priority="900" constant="10" id="O4z-cl-Q7E"/>
-                            <constraint firstItem="eIA-He-6ji" firstAttribute="top" secondItem="RiU-Qk-AFU" secondAttribute="bottom" id="T7A-za-M3r"/>
+                            <constraint firstItem="eIA-He-6ji" firstAttribute="top" secondItem="RiU-Qk-AFU" secondAttribute="bottom" identifier="scrollViewBottomConstraint" id="T7A-za-M3r"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BZZ-bq-lgt" secondAttribute="trailing" priority="900" constant="10" id="n84-w1-iKx"/>
                             <constraint firstAttribute="trailingMargin" secondItem="e5d-5r-Zso" secondAttribute="trailing" constant="10" id="qAs-oo-q40"/>
                             <constraint firstAttribute="trailing" secondItem="RiU-Qk-AFU" secondAttribute="trailing" id="zNm-Hl-mKq"/>
@@ -690,6 +699,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lbAge" destination="fuU-lo-Egi" id="M6d-Z2-gHE"/>
+                        <outlet property="lbAmount" destination="3Gz-ab-OYh" id="m6P-WR-FH9"/>
+                        <outlet property="lbName" destination="J3O-j0-klq" id="w1d-8U-UWI"/>
                         <outlet property="menuTableView" destination="8LK-q8-cRr" id="IRR-Bg-7pP"/>
                     </connections>
                 </viewController>
@@ -705,7 +717,7 @@
                         <viewControllerLayoutGuide type="top" id="bGf-og-e0V"/>
                         <viewControllerLayoutGuide type="bottom" id="l5n-Oy-p6B"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MXX-jq-WhK">
+                    <view key="view" contentMode="scaleToFill" id="MXX-jq-WhK" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -735,7 +747,7 @@
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="vhT-pI-YT3"/>
@@ -746,9 +758,6 @@
                                         <include reference="vhT-pI-YT3"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="txtEmailDidEnd:" destination="lQg-SI-DQi" eventType="editingDidEnd" id="mnU-Wu-HCg"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ysb-fU-VjZ" customClass="ValidationTextField" customModule="Mock_Revenue" customModuleProvider="target">
                                 <rect key="frame" x="16" y="295" width="343" height="30"/>
@@ -768,9 +777,6 @@
                                         <include reference="zJc-79-S9Q"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="txtPasswordDidEnd:" destination="lQg-SI-DQi" eventType="editingDidEnd" id="6of-mL-CyP"/>
-                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lb2-Su-sq8" customClass="ValidationTextField" customModule="Mock_Revenue" customModuleProvider="target">
                                 <rect key="frame" x="16" y="335" width="343" height="30"/>
@@ -790,9 +796,6 @@
                                         <include reference="kzj-Mz-0ca"/>
                                     </mask>
                                 </variation>
-                                <connections>
-                                    <action selector="txtConfirmDidEnd:" destination="lQg-SI-DQi" eventType="editingDidEnd" id="hdJ-8p-9mr"/>
-                                </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e4j-XI-xmp">
                                 <rect key="frame" x="16" y="375" width="343" height="36"/>
@@ -913,6 +916,9 @@
                                 <include reference="M1y-Sy-369"/>
                             </mask>
                         </variation>
+                        <connections>
+                            <action selector="userTappedBackground:" destination="8gp-9g-Twa" eventType="touchDown" id="HQn-0q-Een"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="txtConfirmPassword" destination="lb2-Su-sq8" id="m9j-g7-9TQ"/>
@@ -1090,7 +1096,10 @@
                                                 <rect key="frame" x="25" y="321" width="325" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="txtAmountEditChange:" destination="n1i-gt-16b" eventType="editingChanged" id="bIR-cp-K7j"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diễn giải:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bvs-g2-LC7">
                                                 <rect key="frame" x="25" y="371" width="325" height="21"/>
@@ -1204,6 +1213,7 @@
                         <outlet property="dtpDate" destination="MAG-G5-RT0" id="FAL-hT-Vs6"/>
                         <outlet property="imgCate" destination="Vz9-uY-dZQ" id="uaB-Ua-fTR"/>
                         <outlet property="lbNameCate" destination="5MA-NE-PI7" id="dIp-ov-D69"/>
+                        <outlet property="myScrollView" destination="G2w-p3-7xx" id="luB-fp-gIc"/>
                         <outlet property="txtAmount" destination="DrD-hd-gDb" id="cTf-h5-Eim"/>
                         <outlet property="txtNote" destination="cg7-13-Icc" id="5qi-4a-U5l"/>
                     </connections>
@@ -1324,7 +1334,7 @@
                                     <action selector="sgmChange:" destination="hff-aW-RVf" eventType="valueChanged" id="2B5-Te-MfW"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daT-YY-2br">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daT-YY-2br" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="73" width="375" height="594"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Image:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNs-0e-46A">
@@ -1422,6 +1432,9 @@
                                         <include reference="Sm1-Up-70l"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="userTappedBackground:" destination="PRg-N9-yCD" eventType="touchDown" id="3bX-zs-Hlx"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1659,7 +1672,10 @@
                                                 <rect key="frame" x="25" y="321" width="325" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                <connections>
+                                                    <action selector="txtAmountEditChange:" destination="Gbi-Rl-YpJ" eventType="editingChanged" id="7PI-m7-3XQ"/>
+                                                </connections>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Diễn giải:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qKn-dw-CEp">
                                                 <rect key="frame" x="25" y="371" width="325" height="21"/>
@@ -1783,6 +1799,7 @@
                         <outlet property="dtpDate" destination="kOL-nT-uS8" id="ExF-sM-dnf"/>
                         <outlet property="imgCate" destination="gqh-Xf-i0A" id="yRG-rf-4df"/>
                         <outlet property="lbNameCate" destination="9eH-wv-Tjq" id="8D6-5a-VWQ"/>
+                        <outlet property="myScrollView" destination="wjg-OI-08i" id="VSE-pO-n3I"/>
                         <outlet property="txtAmount" destination="hCG-s8-YAQ" id="9OE-09-gCL"/>
                         <outlet property="txtNote" destination="Uu3-aa-1mh" id="jvc-r3-uAi"/>
                     </connections>

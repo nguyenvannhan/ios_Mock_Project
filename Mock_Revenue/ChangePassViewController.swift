@@ -21,17 +21,26 @@ class ChangePassViewController: UIViewController {
         super.viewDidLoad()
 
         configureNavigation()
+        
+        textFieldDelegate()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         configureNavigation()
+        textFieldDelegate()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldDelegate() {
+        self.txtConfirmPassword.delegate = self
+        self.txtNewPassword.delegate = self
+        self.txtCurrentPassword.delegate = self
     }
     
     func configureNavigation() {
@@ -40,30 +49,39 @@ class ChangePassViewController: UIViewController {
     }
 
     @IBAction func btnChangeClick(_ sender: UIButton) {
+        KRActivityIn.startActivityIndicator(uiView: self.view)
+        
         if (txtNewPassword.text?.characters.count)! < 6 {
-            let alertController = UIAlertController(title: "Error", message: "Passowrd has at leat 6 characters", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Error", message: "Passowrd has at least 6 characters", preferredStyle: .alert)
             
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
+            
+            KRActivityIn.stopActivityIndicator()
         } else {
             if txtNewPassword.text != txtConfirmPassword.text {
                 let alertController = UIAlertController(title: "Error", message: "Confirm new password is wrong", preferredStyle: .alert)
                 
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
+                
+                KRActivityIn.stopActivityIndicator()
             } else {
-                KRActivityIn.startActivityIndicator(uiView: self.view)
                 daoUser.changePassword(currentPassword: txtCurrentPassword.text!, newPassword: txtNewPassword.text!, completionHandler: { (error) in
                     if error == nil {
                         let alertController = UIAlertController(title: "Success", message: "Change Password Success!!!", preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
                     } else {
                         let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     
                     KRActivityIn.stopActivityIndicator()

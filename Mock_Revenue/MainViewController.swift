@@ -52,7 +52,7 @@ class MainViewController: UIViewController, UISearchResultsUpdating {
     
     //Configure Navigation for view
     func configureNavigation() {
-        self.navigationItem.title = String(format: "%.0f", User.amount!) + " VNĐ"
+        self.navigationItem.title = commonFunction.addDotText(text: String(format: "%.0f", User.amount!)) + " VNĐ"
         
         self.navigationController?.isNavigationBarHidden = false
         self.navigationItem.hidesBackButton = true

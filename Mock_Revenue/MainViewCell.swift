@@ -17,10 +17,12 @@ class MainViewCell: UITableViewCell {
     @IBOutlet weak var lbNote: UILabel!
     
     func configureCell(transactionM: TransactionModel) {
+        let commonFunction: CommonFunction = CommonFunction()
+        
         self.imgCate.image = UIImage(named: transactionM.imageType!)
         self.lbDate.text = transactionM.date
         self.lbNameCate.text = "Loại: " + transactionM.nameType!
-        self.lbAmount.text = String(format: "%.0f", transactionM.amount!) + " VNĐ"
+        self.lbAmount.text = commonFunction.addDotText(text: String(format: "%.0f", transactionM.amount!)) + " VNĐ"
         self.lbNote.text = transactionM.note
         
         if transactionM.idType == 0 {

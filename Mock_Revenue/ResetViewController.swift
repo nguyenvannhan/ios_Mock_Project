@@ -26,7 +26,13 @@ class ResetViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func textFieldDelegate() {
+        self.txtReset.delegate = self
+    }
+    
     @IBAction func btnResetClick(_ sender: Any) {
+        KRActivityIn.startActivityIndicator(uiView: self.view)
+        
         if txtReset.text?.characters.count == 0 {
             let alertController = UIAlertController(title: "Error", message: "Please enter email!", preferredStyle: .alert)
             
@@ -34,6 +40,8 @@ class ResetViewController: UIViewController {
             alertController.addAction(defaultAction)
             
             self.present(alertController, animated: true, completion: nil)
+            
+            KRActivityIn.stopActivityIndicator()
         } else if !commonFunction.isValidEmail(testStr: txtReset.text!) {
             let alertController = UIAlertController(title: "Error", message: "Email format is wrong!", preferredStyle: .alert)
             
@@ -41,9 +49,9 @@ class ResetViewController: UIViewController {
             alertController.addAction(defaultAction)
             
             self.present(alertController, animated: true, completion: nil)
-        } else {
-            KRActivityIn.startActivityIndicator(uiView: self.view)
             
+            KRActivityIn.stopActivityIndicator()
+        } else {
             daoUser.resetPassword(email: txtReset.text!, completionHandler: { (error) in
                 if error == nil {
                     KRActivityIn.stopActivityIndicator()

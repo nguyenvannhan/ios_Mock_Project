@@ -14,6 +14,10 @@ protocol GetMenuIndex {
 
 class MenuViewController: UIViewController {
 
+    @IBOutlet weak var lbName: UILabel!
+    @IBOutlet weak var lbAge: UILabel!
+    @IBOutlet weak var lbAmount: UILabel!
+    
     var menuList: [TypeMenu] = TypeMenu.getList()
     
     @IBOutlet weak var menuTableView: UITableView!
@@ -27,6 +31,17 @@ class MenuViewController: UIViewController {
         self.menuTableView.dataSource = self
         
         configureNavigation()
+        
+        let commonFunction: CommonFunction = CommonFunction()
+        lbName.text = User.name
+        lbAge.text = String(describing: User.age ?? 0) + " tuổi"
+        lbAmount.text = commonFunction.addDotText(text: String(format: "%g", User.amount ?? 0)) + " VNĐ"
+        
+        if User.amount! >= Double(0) {
+            lbAmount.textColor = UIColor.blue
+        } else {
+            lbAmount.textColor = UIColor.red
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -16,6 +16,7 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
     @IBOutlet weak var lbNameCate: UILabel!
     @IBOutlet weak var txtAmount: UITextField!
     @IBOutlet weak var txtNote: UITextView!
+    @IBOutlet weak var myScrollView: UIScrollView!
     
     let daoTransaction: DAOTransactionList = DAOTransactionList()
     let commonFunction: CommonFunction = CommonFunction()
@@ -35,7 +36,7 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
         revenueTypeTemp.image = transactionModel?.imageType
         self.lbNameCate.text = revenueTypeTemp.name
         self.imgCate.image = UIImage(named: revenueTypeTemp.image!)
-        self.txtAmount.text = String(format: "%.0f", (transactionModel?.amount)!)
+        self.txtAmount.text = commonFunction.addDotText(text: String(format: "%.0f", (transactionModel?.amount)!))
         self.txtNote.text = transactionModel?.note
         self.idType = transactionModel?.idType
         self.currentAmount = (transactionModel?.amount)!
@@ -45,6 +46,9 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
         
         txtNote.layer.borderWidth = 0.3
         txtNote.layer.borderColor = UIColor.gray.cgColor
+        
+        textFieldDelegate()
+        configureScrollView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,11 +64,33 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
                 self.txtAmount.textColor = UIColor.red
             }
         }
+        
+        textFieldDelegate()
+        configureScrollView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func textFieldDelegate() {
+        self.txtAmount.delegate = self
+        self.txtNote.delegate = self
+        
+        let tapEvent = UITapGestureRecognizer(target: self, action: #selector(self.userTappedBackground))
+        self.myScrollView.addGestureRecognizer(tapEvent)
+    }
+    
+    func configureScrollView() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     @IBAction func btnChangeCateClick(_ sender: UIButton) {
@@ -94,7 +120,12 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
         } else {
             checkInternet()
             
-            if txtAmount.text == "0" || txtAmount.text == "" {
+            var amountText: String = ""
+            if let text = txtAmount.text {
+                amountText = commonFunction.removeDotText(text: text)
+            }
+            
+            if amountText == "0" {
                 let alertController = UIAlertController(title: "Error", message: "Please enter amount!", preferredStyle: .alert)
                 
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -108,7 +139,7 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
                 dateFomatter.dateFormat = "dd/MM/yyyy"
                 let date = dateFomatter.string(from: dtpDate.date)
                 
-                let transactionModelc = TransactionModel(imageType: revenueTypeTemp.image, nameType: revenueTypeTemp.name, idType: idType, note: txtNote.text, amount: Double(txtAmount.text!), date: date)
+                let transactionModelc = TransactionModel(imageType: revenueTypeTemp.image, nameType: revenueTypeTemp.name, idType: idType, note: txtNote.text, amount: Double(amountText), date: date)
                 transactionModelc.key = transactionModel?.key
                 
                 daoTransaction.editTransaction(currentAmount: currentAmount, transactionModel: transactionModelc, completionHandler: { (error) in
@@ -125,6 +156,17 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
                         KRActivityIn.stopActivityIndicator()
                     }
                 })
+            }
+        }
+    }
+    
+    @IBAction func txtAmountEditChange(_ sender: Any) {
+        if let text = txtAmount.text {
+            let resultText = commonFunction.addDotText(text: text)
+            txtAmount.text = resultText
+            
+            if text.characters.count == 0 {
+                txtAmount.text = "0"
             }
         }
     }
@@ -149,6 +191,22 @@ class EditTransactionViewController: UIViewController, SetValuePreviousVC {
             alertController.addAction(defaultAction)
             
             self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func keyboardDidShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    func keyboardWillBeHidden(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
         }
     }
 }
