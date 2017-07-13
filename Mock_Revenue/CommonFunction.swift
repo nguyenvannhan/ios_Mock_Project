@@ -174,4 +174,22 @@ class CommonFunction {
         }
         return tempText
     }
+    
+    func textFieldValidate(textField: UITextField, range: NSRange, string: String) -> Bool {
+        if textField.tag == 10 {
+            let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
+            
+            let components = string.components(separatedBy: inverseSet)
+            
+            let filtered = components.joined(separator: "")
+            
+            if filtered == string {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
 }
