@@ -56,7 +56,7 @@ class ResetViewController: UIViewController {
                 if error == nil {
                     KRActivityIn.stopActivityIndicator()
                     
-                    let alertController = UIAlertController(title: "Error", message: "A reset email was send to your email. Please check your email!", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Success", message: "A reset email was send to your email. Please check your email!", preferredStyle: .alert)
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
                     

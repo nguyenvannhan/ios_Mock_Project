@@ -9,35 +9,45 @@
 import Foundation
 import UIKit
 
-extension MenuViewController: UITableViewDelegate, UITableViewDataSource {    
+//Extension for MenuViewController class
+// To configure Datasource and delegate
+extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
+    // Number Of Section
     func numberOfSections(in tableView: UITableView) -> Int {
         return menuList.count
     }
     
+    //Number of Rows in each Section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let menuType = menuList[section]
         return (menuType.menus?.count)!
     }
     
+    //Format Cell to display on Row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = menuTableView.dequeueReusableCell(withIdentifier: "MenuViewCell") as! MenuViewCell
         
         let menuType = menuList[indexPath.section]
         let menu = menuType.menus?[indexPath.row]
+        
+        // Configure the cell...
         cell.configureCell(menu: menu!)
         
         return cell
     }
     
+    //Set title for Header of section
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let menuType = menuList[section]
         return menuType.nameType
     }
     
+    //Catch event click a row of tableview
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let cell = self.menuTableView.cellForRow(at: indexPath) as! MenuViewCell
         
+        //Check Detail of Row and Push to viwe
         if cell.lbMenuCellName.text == "Revenue List" {
             if indexTemp == 0 {
                 self.navigationController?.popViewController(animated: true)
@@ -74,6 +84,7 @@ extension MenuViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
+        //If Logout, call to logout function and push to Login View
         if cell.lbMenuCellName.text == "Logout" {
             let daoUser = DAOUser()
             

@@ -9,17 +9,21 @@
 import Foundation
 import UIKit
 
+//Extension for ImageCateController class
+// To configure Datasource and delegate
 extension ImageCateController: UICollectionViewDataSource, UICollectionViewDelegate {
+    // Number Of Section
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    
+    //Number of Item in each Section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return imageList.count
     }
     
+    //Format Cell to display on Item
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCateCell", for: indexPath) as! ImageCateCell
         
@@ -29,6 +33,7 @@ extension ImageCateController: UICollectionViewDataSource, UICollectionViewDeleg
         return cell
     }
     
+    //Catch event click a Item in collection View
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let image = self.imageList[indexPath.row] as String
         

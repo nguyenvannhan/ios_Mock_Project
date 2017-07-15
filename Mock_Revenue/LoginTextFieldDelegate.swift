@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+//Extension for LoginController class
+// To configure Datasource and delegate
 extension LoginController: UITextFieldDelegate {
+    //function dismiss keyboard when press return key
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    //function dismiss keyboard when touch background
     @IBAction func userTappedBackground(_ sender: Any) {
         self.view.endEditing(true)
     }

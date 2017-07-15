@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
+//Extension for AddTransactionController class
+// To configure Datasource and delegate
 extension AddTransactionController: UITextFieldDelegate, UITextViewDelegate {
+    //Dismiss keyboard when press return key
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
     }
     
+    //Dismiss keyboard when press return key for Text View
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
@@ -24,10 +28,12 @@ extension AddTransactionController: UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
+    //Vaidate textfield. User only enter number
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return commonFunction.textFieldValidate(textField: textField, range: range, string: string)
     }
     
+    //Dismiss keyboard when touch background
     func userTappedBackground() {
         self.myScrollView.endEditing(true)
     }

@@ -9,23 +9,28 @@
 import Foundation
 import FirebaseDatabase
 
+
+//Class connect Firebase and get Data about Revenue Type Of User
 class DAORevenueType {
     
     var ref: DatabaseReference?
-    var handle: DatabaseHandle?
     
-    
-    
+    //Funtion get Outcome Type
     func getOutComeType(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
+        //Array to store Outcome Type
         var revenueTypeListc: [RevenueType] = []
+        //Uid to get Outcome Type Of User
         let uid = User.uid
+        //Construction connect variable
         ref = Database.database().reference()
         
-        
+        //Connect
          ref?.child("nguoi_dung").child(uid!).child("loai_chi").observeSingleEvent(of: .value, with: { (snapshot) in
+            //Get data sucess
             if snapshot.exists() {
                 if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                     for snap in snapshot {
+                        //Get each row and add to list
                         if let postDict = snap.value as? [String: AnyObject] {
                             let revenueType = RevenueType(json: postDict)
                             revenueType.key = snap.key
@@ -33,8 +38,10 @@ class DAORevenueType {
                         }
                     }
                 }
+                //Return result
                 completionHandler(revenueTypeListc, nil)
             } else {
+                //Error
                 let error = "Can not get data"
                 
                 completionHandler(nil, error)
@@ -42,6 +49,7 @@ class DAORevenueType {
         })
     }
     
+    //Function connect Firebase and get Outcome Type (Common Outcome)
     func getOutComeTypeFirst(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
         var revenueTypeListc: [RevenueType] = []
         ref = Database.database().reference()
@@ -67,6 +75,7 @@ class DAORevenueType {
         })
     }
     
+    //Get Income Type For User
     func getInComeType(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
         var revenueTypeListc: [RevenueType] = []
         let uid = User.uid
@@ -93,6 +102,7 @@ class DAORevenueType {
         })
     }
     
+    //Get Income Type (Common Type)
     func getInComeTypeFirst(completionHandler: @escaping (_ revenueTypeList: [RevenueType]?, _ error: String?) -> Void) {
         var revenueTypeListc: [RevenueType] = []
         
@@ -119,6 +129,7 @@ class DAORevenueType {
         })
     }
     
+    //Add a new Revenue Type
     func addNewRevenueType(loaiChi: Bool, revenueType: RevenueType, completionHandler: @escaping (_ error: Error?) -> Void) {
         ref = Database.database().reference()
         let data = [

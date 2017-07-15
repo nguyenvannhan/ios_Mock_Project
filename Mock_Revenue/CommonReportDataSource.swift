@@ -9,15 +9,20 @@
 import Foundation
 import UIKit
 
+//Extension for MainViewController class
+// To configure Datasource and delegate
 extension CommonReportController: UICollectionViewDelegate, UICollectionViewDataSource {
+    // Number Of Section
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
+    //Number of Items in each Section
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reportList.count
     }
     
+    //Format Cell to display on Item
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let reportModel = reportList[indexPath.row]
         
@@ -28,6 +33,7 @@ extension CommonReportController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    //Get data from Firebase
     func getData() {
         let daoReport: DAOReport = DAOReport()
         

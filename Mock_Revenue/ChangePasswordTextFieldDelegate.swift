@@ -9,12 +9,16 @@
 import Foundation
 import UIKit
 
+//Extension for ChangePassViewController class
+// To configure Datasource and delegate
 extension ChangePassViewController: UITextFieldDelegate {
+    //function dismiss keyboard when press return key
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    //function dismiss keyborad when touch background
     @IBAction func userTappedBackground(_ sender: Any) {
         self.view.endEditing(true)
     }

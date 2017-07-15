@@ -9,10 +9,12 @@
 import Foundation
 import FirebaseDatabase
 
+//Class connect and get Data Transaction List
 class DAOTransactionList {
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
     
+    //Get data transaction list by User
     func getTransactionList(completionHandler: @escaping (_ transactionList: [TransactionModel]?, _ error: String?) -> Void) {
         var transactionList: [TransactionModel] = []
         
@@ -39,6 +41,7 @@ class DAOTransactionList {
         })
     }
     
+    //Add a new transaction
     func addNewTransaction(transactionModel: TransactionModel, completionHandler: @escaping (_ error: Error?) -> Void) {
         
         ref = Database.database().reference()
@@ -69,6 +72,7 @@ class DAOTransactionList {
         })
     }
     
+    //Edit a transaction
     func editTransaction(currentAmount: Double, transactionModel: TransactionModel, completionHandler: @escaping (_ error: Error?) -> Void) {
         
         ref = Database.database().reference()
@@ -96,6 +100,7 @@ class DAOTransactionList {
         })
     }
     
+    //Delete a transaction
     func deleteTransaction(transactionModel: TransactionModel, completionHandler: @escaping (_ error: Error?) -> Void) {
         ref = Database.database().reference()
         

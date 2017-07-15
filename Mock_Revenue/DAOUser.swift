@@ -10,12 +10,14 @@ import Foundation
 import FirebaseDatabase
 import FirebaseAuth
 
+//Class connect Firebase and manage activity for User
 class DAOUser {
     var ref: DatabaseReference?
     var handle: DatabaseHandle?
     
     let daoRevenueType: DAORevenueType = DAORevenueType()
     
+    //Login
     func login(email: String, password: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error == nil {
@@ -42,6 +44,7 @@ class DAOUser {
         }
     }
     
+    //Register an account
     func registry(email: String, password: String, name: String, age: Int, amount: Double, completionHandler: @escaping (_ error: Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error == nil {
@@ -91,6 +94,7 @@ class DAOUser {
         })
     }
     
+    //Function change Pass
     func changePassword(currentPassword: String, newPassword: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         let user = Auth.auth().currentUser
         let credential = EmailAuthProvider.credential(withEmail: User.email!, password: currentPassword)
@@ -108,6 +112,7 @@ class DAOUser {
         })
     }
     
+    //Logout
     func logout(completionHandler: @escaping (_ error: Error?) -> Void) {
         let firebaseAuth = Auth.auth()
         do {
@@ -122,6 +127,7 @@ class DAOUser {
         }
     }
     
+    //Reset Password
     func resetPassword(email: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         Auth.auth().sendPasswordReset(withEmail: email, completion: { (error) in
             completionHandler(error)
